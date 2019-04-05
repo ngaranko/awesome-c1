@@ -80,7 +80,7 @@ t.wibar_border_width    = dpi(0)
 t.wibar_ontop           = true
 t.wibar_type            = 'dock'
 t.wibar_fg              = text_focus
-t.wibar_bg              = menu_bg .. 'E3'
+t.wibar_bg              = menu_bg .. 'C3'
 t.wibar_shape           = shape.rectangle
 
 
@@ -116,5 +116,10 @@ t.taglist_bg_focus  = 'linear:0,0:' .. t.taglist_width .. ',0:0,' .. bg_focus ..
 -- color of index popups
 t.index_bg          = '#bfb1b188'
 
+
+-- SYSTEM TRAY SECTION
+
+t.bg_systray = menu_bg .. 'C3' 
+t.systray_icon_spacing = dpi(1)
 
 return t

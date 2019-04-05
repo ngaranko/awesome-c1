@@ -9,6 +9,7 @@ local beautiful = require('beautiful')
 -- widgets
 local taglist = require('widgets.tag_list')
 local batt = require('widgets.battery')
+local launch = require('widgets.startapp')
 
 local module = {}
 
@@ -21,7 +22,7 @@ function module.createsidebar(s)
     s.layoutbox:buttons(gears.table.join(
                         awful.button({}, 1, function() awful.layout.inc(1) end)))
     s.promptbox = awful.widget.prompt()
-    s.textclock = wibox.widget.textclock('<b>%l%n%M</b>')
+    s.textclock = wibox.widget.textclock('<b>%I%n%M</b>')
     s.textclock.align = 'center'
     s.textclock.font = beautiful.taglist_font
     s.sidebar_root = awful.wibar({
@@ -32,6 +33,7 @@ function module.createsidebar(s)
     s.sidebar_root:setup({
         -- top widgets
         {
+            launch,
             s.taglist,
             s.promptbox,
             layout = wibox.layout.fixed.vertical,

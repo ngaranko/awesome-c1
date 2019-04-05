@@ -58,13 +58,17 @@ return awful.widget.taglist ({
                 if  self.bg ~= beautiful.bg_focus then
                     self.backup     = self.bg
                     self.has_backup = true
+                    local tag = awful.screen.focused().tags[index]
+                    self.backup_sel = tag.selected
                     self.bg = beautiful.bg_focus
                 end
                 
             end)
             self:connect_signal('mouse::leave', function()
-                if self.has_backup and index ~= awful.screen.focused().selected_tag.index then 
+                local tag = awful.screen.focused().tags[index]
+                if self.has_backup and self.backup_sel == tag.selected then 
                     self.bg = self.backup 
+                    self.has_backup = false
                 end
             end)
         end,
