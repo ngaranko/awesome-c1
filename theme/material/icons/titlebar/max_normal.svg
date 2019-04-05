@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64"
+   height="95"
+   viewBox="0 0 16.933333 25.135416"
+   version="1.1"
+   id="svg3725"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="max_normal.svg">
+  <defs
+     id="defs3719" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="6.3532609"
+     inkscape:cx="-4.4396922"
+     inkscape:cy="41.163388"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1054"
+     inkscape:window-x="0"
+     inkscape:window-y="26"
+     inkscape:window-maximized="1"
+     units="px" />
+  <metadata
+     id="metadata3722">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-56.696434,-146.3765)">
+    <circle
+       id="path3727"
+       cx="65.163101"
+       cy="158.94421"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.03076021"
+       r="6.327816" />
+    <circle
+       r="6.0779443"
+       style="fill:#c7c7c7;fill-opacity:1;stroke-width:0.02954555"
+       cy="158.94421"
+       cx="65.163101"
+       id="circle852" />
+  </g>
+</svg>
