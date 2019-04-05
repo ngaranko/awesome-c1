@@ -504,4 +504,5 @@ gears.timer.start_new (1,function ()
     awful.screen.focused().battery_widget:update() 
     return false
 end)
+awful.spawn(gears.filesystem.get_configuration_dir().. 'autostart.sh')
 -- }}}
