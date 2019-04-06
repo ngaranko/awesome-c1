@@ -87,7 +87,7 @@ t.wibar_shape           = shape.rectangle
 -- TAG SECTION --
 t.master_width_factor = 0.5
 t.useless_gap = dpi(7)
-t.gap_single_client = false
+t.gap_single_client = true
 t.master_fill_policy = 'expand'
 t.master_count = 1
 t.column_count = 1
@@ -114,12 +114,11 @@ t.icon_font         = 'DroidSansMono Nerd Font 21'
 -- color pattern
 t.taglist_bg_focus  = 'linear:0,0:' .. t.taglist_width .. ',0:0,' .. bg_focus .. ':0.12,' .. bg_focus .. ':0.12,#00000000:1,' .. '#00000000' 
 -- color of index popups
-t.index_bg          = '#bfb1b188'
+t.index_bg          = '#bfb1b1CA'
 
 
 -- SYSTEM TRAY SECTION
 
-t.bg_systray = menu_bg .. 'C3' 
 t.systray_icon_spacing = dpi(1)
 
 return t

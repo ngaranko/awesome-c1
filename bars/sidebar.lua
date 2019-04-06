@@ -48,6 +48,7 @@ function module.createsidebar(s)
             s.battery_widget,
             s.systray,
             s.textclock,
+            spacing = 5,
             layout = wibox.layout.fixed.vertical,
         },
         layout = wibox.layout.align.vertical,

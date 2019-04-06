@@ -36,6 +36,7 @@ return awful.widget.taglist ({
                         {
                             -- index of the tag
                             id     = 'index_role',
+                            align = 'center',
                             widget = wibox.widget.textbox,
                         },
                         margins = 0,

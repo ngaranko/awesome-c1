@@ -50,7 +50,7 @@ end
 -- This is used later as the default terminal and editor to run.
 beautiful.init(require('theme'))
 terminal = "konsole"
-editor = os.getenv("EDITOR") or "nano"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -160,7 +160,7 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey, }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-    awful.key({modkey}, '`', 
+    awful.key({modkey,  }, '`', 
     function() 
         for index,widget in ipairs(awful.screen.focused().taglist:get_children()) do
             widget.taglist_widget.index_box:set_visible(true)
@@ -172,6 +172,10 @@ globalkeys = gears.table.join(
         end
     end,
     {description = 'show tag numbers'}),
+    awful.key({ modkey, }, 't', function()
+        awful.screen.focused().systray.visible = not awful.screen.focused().systray.visible
+        end,
+        {descripton = 'toggle system tray'}),
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
@@ -339,6 +343,8 @@ for i = 1, 9 do
                           local tag = client.focus.screen.tags[i]
                           if tag then
                               client.focus:move_to_tag(tag)
+                              -- move our view to this tag as well
+                              tag:view_only()
                           end
                      end
                   end,
@@ -438,7 +444,7 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
-    -- if not awesome.startup then awful.client.setslave(c) end
+    if not awesome.startup then awful.client.setslave(c) end
 
     if awesome.startup
       and not c.size_hints.user_position
@@ -450,6 +456,11 @@ client.connect_signal("manage", function (c)
     c.shape = function (cr,w,h)
         gears.shape.rounded_rect(cr,w,h,beautiful.corner_radius)
     end
+end)
+
+client.connect_signal("request::activate", function(client,context,hints)
+    gears.table.crush(hints,{switch_to_tag = true})
+    awful.ewmh.activate(client,context,hints)
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
