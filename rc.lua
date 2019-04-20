@@ -106,7 +106,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Keyboard map indicator and switcher
 
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local function set_wallpaper(s)
@@ -160,6 +159,8 @@ globalkeys = gears.table.join(
             end
         end),
     awful.key({         }, "XF86AudioPlay", function() awful.spawn("playerctl play-pause") end ),
+    awful.key({         },"XF86AudioNext", function() awful.spawn("playerctl next") end),
+    awful.key({         },"XF86AudioPrev", function() awful.spawn("playerctl previous") end),
     awful.key({ modkey  }, "o",             awful.screen.focused().launch.spawn, {description = 'open new item on tag'}),
     awful.key({         }, "XF86AudioRaiseVolume", function() awful.spawn('pactl set-sink-volume 0 +5%') end),
     awful.key({         }, "XF86AudioLowerVolume", function() awful.spawn('pactl set-sink-volume 0 -5%') end),
