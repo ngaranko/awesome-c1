@@ -9,49 +9,50 @@ local beautiful = require('beautiful')
 -- widgets
 local taglist = require('widgets.tag_list')
 local batt = require('widgets.battery')
-local launch = require('widgets.startapp')
+local launch = require('widgets.pie')
 
 local module = {}
 
-function module.createsidebar(s)
+function module.createbar(s)
     s.taglist = taglist.make_tag_list(s)
     s.battery_widget = batt
+    s.launch = launch
     s.layoutbox = awful.widget.layoutbox(s)
     s.systray = wibox.widget.systray()
-    s.systray:set_horizontal(false)
+    s.systray.visible = false
     s.layoutbox:buttons(gears.table.join(
                         awful.button({}, 1, function() awful.layout.inc(1) end)))
     s.promptbox = awful.widget.prompt()
-    s.textclock = wibox.widget.textclock('<b>%I%n%M</b>')
+    s.textclock = wibox.widget.textclock('<b>%a, %b %_d %_I:%M %p</b>')
+    s.textclock.valign = 'center'
     s.textclock.align = 'center'
     s.textclock.font = beautiful.taglist_font
     s.sidebar_root = awful.wibar({
         screen = s,
-        position = "left",
-        width = beautiful.taglist_width,
+        position = "top",
     })
     s.sidebar_root:setup({
         -- top widgets
         {
-            launch,
+            s.launch,
             s.taglist,
             s.promptbox,
-            layout = wibox.layout.fixed.vertical,
+            layout = wibox.layout.fixed.horizontal,
         },
         --middle widget
         {
-            layout = wibox.layout.fixed.vertical,
+            layout = wibox.layout.fixed.horizontal,
         },
         -- bottom widget
         {
             s.layoutbox,
+            s.textclock,
             s.battery_widget,
             s.systray,
-            s.textclock,
-            spacing = 5,
-            layout = wibox.layout.fixed.vertical,
+            spacing = 10,
+            layout = wibox.layout.fixed.horizontal,
         },
-        layout = wibox.layout.align.vertical,
+        layout = wibox.layout.align.horizontal,
     })
 end
 

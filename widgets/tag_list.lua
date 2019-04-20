@@ -8,26 +8,31 @@ function module.make_tag_list(s)
 -- create tag list
 
 local taglist_buttons = gears.table.join(
-               awful.button({ }, 1, function(t) t:view_only() end)
+               awful.button({ }, 1, function(t) t:view_only() end),
+               awful.button({ }, 3, function(t) awful.tag.viewtoggle(t) end)
             )
 
 return awful.widget.taglist ({
   screen  = s,
     filter  = awful.widget.taglist.filter.all,
-    layout  = wibox.layout.fixed.vertical,
+    layout  = wibox.layout.fixed.horizontal,
     widget_template = {
             {
                 id = 'taglist_widget',
                 {
                     {
-                        -- custom text for the widget, use font icons
-                        id     = 'text_display', 
-                        font = beautiful.icon_font,
-                        text = "UNSET",
-                        align = 'center',
-                        widget = wibox.widget.textbox,
+                     -- let the text role get set so we can use it
+                     id     = 'text_display', 
+                     font = beautiful.icon_font .." 21",
+                     text = "UNSET",
+                     align = 'center',
+                     valign = 'top',
+                     widget = wibox.widget.textbox,
                     },
-                    margins = 5,
+                    top = 7,
+                    bottom = 2,
+                    left = 5,
+                    right = 5,
                     widget = wibox.container.margin,
                 },
                 {
@@ -37,6 +42,7 @@ return awful.widget.taglist ({
                             -- index of the tag
                             id     = 'index_role',
                             align = 'center',
+                            valign = 'center',
                             widget = wibox.widget.textbox,
                         },
                         margins = 0,
@@ -52,9 +58,9 @@ return awful.widget.taglist ({
         id     = 'background_role',
         widget = wibox.container.background,
         -- Add support for hover colors and an index label
-        create_callback = function(self, c3, index, objects) --luacheck: no unused args
-            self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
-            self:get_children_by_id('text_display')[1].text = beautiful.taglist_icons[index]
+        create_callback = function(self, tag, index, tags) --luacheck: no unused args
+            self:get_children_by_id('index_role')[1].markup = '<b> ' .. tag.name .. ' </b>'
+            self:get_children_by_id('text_display')[1].text = beautiful.taglist_icons[tonumber(tag.name)]
             self:connect_signal('mouse::enter', function()
                 if  self.bg ~= beautiful.bg_focus then
                     self.backup     = self.bg
@@ -74,7 +80,7 @@ return awful.widget.taglist ({
             end)
         end,
         update_callback = function(self, c3, index, objects) --luacheck: no unused args
-            self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
+            self:get_children_by_id('index_role')[1].markup = '<b> '.. c3.name ..' </b>'
         end,
     },
     buttons = taglist_buttons,

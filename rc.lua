@@ -13,7 +13,7 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-local sidebar = require("bars.sidebar")
+local bar = require("bars.bar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -122,13 +122,13 @@ local function set_wallpaper(s)
 end
 
 local function set_tags(s)
-    --creates all desired tags. Tag icons are set in sidebar.lua
+    -- creates tags, using icons
     awful.tag(
-        { "1", "2", "3", "4", "5", "6", "7","8"},
-        s, 
-        awful.layout.layouts[1]
-    )
-end
+    { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+    s,
+    awful.layout.layouts[1]
+    ) 
+    end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
@@ -136,7 +136,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
     set_tags(s)
-    sidebar.createsidebar(s)
+    bar.createbar(s)
 end)
 
 
@@ -152,6 +152,17 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+    awful.key({ modkey, "Shift"   }, "n",
+        function()
+            local tag = awful.tag.selected()
+                for i=1, #tag:clients() do
+                    tag:clients()[i].minimized=false
+            end
+        end),
+    awful.key({         }, "XF86AudioPlay", function() awful.spawn("playerctl play-pause") end ),
+    awful.key({ modkey  }, "o",             awful.screen.focused().launch.spawn, {description = 'open new item on tag'}),
+    awful.key({         }, "XF86AudioRaiseVolume", function() awful.spawn('pactl set-sink-volume 0 +5%') end),
+    awful.key({         }, "XF86AudioLowerVolume", function() awful.spawn('pactl set-sink-volume 0 -5%') end),
     awful.key({ modkey, }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey, }, "Left",   awful.tag.viewprev,
