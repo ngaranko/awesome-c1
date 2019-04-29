@@ -28,10 +28,10 @@ t.font = 'SF Pro Display 14'
 
 -- CLIENT SECTION
 
-t.corner_radius = dpi(4)
+t.corner_radius = dpi(6)
 t.border_width  = dpi(0)
 t.border_normal = menu_bg
-t.border_focus  = bg_focus
+t.border_focus  = text_focus
 t.border_marked = bg_focus
 
 
