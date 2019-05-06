@@ -45,21 +45,22 @@ local perc_discharge = {}
 
 --lookup table for charging percentages
 local perc_charg = {}
-    perc_charg [0  ] = utf8.char(62853)
-    perc_charg [10 ] = utf8.char(62853)
-    perc_charg [20 ] = utf8.char(62853)
-    perc_charg [30 ] = utf8.char(62854)
-    perc_charg [40 ] = utf8.char(62855)
-    perc_charg [50 ] = utf8.char(62855)
-    perc_charg [60 ] = utf8.char(62856)
-    perc_charg [70 ] = utf8.char(62856)
-    perc_charg [80 ] = utf8.char(62857)
-    perc_charg [90 ] = utf8.char(62859)
+    perc_charg [0  ] = utf8.char(62851)
+    perc_charg [10 ] = utf8.char(62851)
+    perc_charg [20 ] = utf8.char(62851)
+    perc_charg [30 ] = utf8.char(62851)
+    perc_charg [40 ] = utf8.char(62851)
+    perc_charg [50 ] = utf8.char(62851)
+    perc_charg [60 ] = utf8.char(62851)
+    perc_charg [70 ] = utf8.char(62851)
+    perc_charg [80 ] = utf8.char(62851)
+    perc_charg [90 ] = utf8.char(62851)
     perc_charg [100] = utf8.char(62851)
 
+local state = nil
+local percentage = nil
 
-
-local function update_widget(percentage,state)
+local function update_widget()
     -- state: 1: charging, 2: dischargning
     local round_perc = percentage - (percentage%10)
     if state == 1 then
@@ -69,16 +70,21 @@ local function update_widget(percentage,state)
     else
         naughty.notify({title='NEW BATTERY STATE', text = 'Number' .. tostring(state)})
     end
-    bat_txt.text = tostring(percentage) .. '%' 
+    bat_txt.text = string.format('%.0f%%',percentage)
     -- notify user if battery is below 10%
     if percentage<=10 then
         naughty.notify({title = 'Low Battery', text = 'Battery is getting low!'})
+    end
 end
 
 dbus.register_listener(bus,path,interface,member,function (data)
-    if data.Percentage ~= nil and data.State ~= nil then
-        update_widget(data.Percentage,data.State)
+    if data.Percentage ~= nil then
+        percentage = data.Percentage
     end
+    if data.State ~= nil then
+        state = data.State
+    end
+    update_widget()
    end)
 
 
@@ -89,7 +95,9 @@ dbus.getProps(bus,dest,path,'org.freedesktop.UPower.Device',function (data)
         naughty.notify({text = 'Error Getting Battery Level'})
     else
         -- update battery level
-        update_widget(data.Percentage,data.State)
+        percentage = data.Percentage
+        state = data.State
+        update_widget()
     end
     end)
 

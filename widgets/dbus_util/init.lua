@@ -104,7 +104,12 @@ function db_wrap.register_listener(bus, path, interface, member, listener)
         -- path is the path of the signal
         -- data contains information from the media player (such as track)
         if callback_table[signal.interface][signal.path] ~= nil then
-            callback_table[signal.interface][signal.path](data)
+            signal_metadata = {
+                signal_data = signal,
+                signal_path = sig_path,
+            }
+            signal_metadata = table.join(signal_metadata,{...})
+            callback_table[signal.interface][signal.path](data,signal_metadata)
         end
     end
     if callback_table[interface] == nil then

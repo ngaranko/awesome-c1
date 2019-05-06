@@ -78,7 +78,12 @@ local widget = wibox.widget{
     layout = wibox.layout.fixed.horizontal,
 }
 
-
+dbus.register_listener(bus,'/org/freedesktop/DBus','org.freedesktop.DBus','NameOwnerChanged',function(data,signal_meta) 
+        if signal_meta.signal_data.member == 'NameOwnerChanged' and signal_meta.signal_path== 'org.mpris.MediaPlayer2.spotify' then
+            song_desc.text = ''
+            play_btn.text = utf8.char(63756)  
+        end
+    end)
 
 -- register handler
 
