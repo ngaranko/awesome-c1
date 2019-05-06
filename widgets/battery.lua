@@ -70,6 +70,9 @@ local function update_widget(percentage,state)
         naughty.notify({title='NEW BATTERY STATE', text = 'Number' .. tostring(state)})
     end
     bat_txt.text = tostring(percentage) .. '%' 
+    -- notify user if battery is below 10%
+    if percentage<=10 then
+        naughty.notify({title = 'Low Battery', text = 'Battery is getting low!'})
 end
 
 dbus.register_listener(bus,path,interface,member,function (data)
