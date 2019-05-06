@@ -522,10 +522,5 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
--- updated the battery widget once things have settled (so we get an accurate reading)
-gears.timer.start_new (1,function ()
-    awful.screen.focused().battery_widget:update() 
-    return false
-end)
 awful.spawn(gears.filesystem.get_configuration_dir().. 'autostart.sh')
 -- }}}

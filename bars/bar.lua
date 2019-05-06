@@ -9,7 +9,6 @@ local beautiful = require('beautiful')
 -- widgets
 local taglist = require('widgets.tag_list')
 local launch = require('widgets.pie')
-local batt = require('widgets.battery')
 local module = {}
 
 function module.createbar(s)
@@ -17,7 +16,6 @@ function module.createbar(s)
     s.launch = launch
     s.layoutbox = awful.widget.layoutbox(s)
     s.systray = wibox.widget.systray()
-    s.battery_widget = batt
     s.systray.visible = false
     s.layoutbox:buttons(gears.table.join(
                         awful.button({}, 1, function() awful.layout.inc(1) end)))
@@ -47,7 +45,7 @@ function module.createbar(s)
             require('widgets.media_player'),
             s.layoutbox,
             s.textclock,
-            s.battery_widget,
+            require('widgets.battery'),
             s.systray,
             spacing = 10,
             layout = wibox.layout.fixed.horizontal,

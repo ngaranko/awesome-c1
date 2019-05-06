@@ -1,13 +1,35 @@
---[[
-    Battery widget based off lain battery widget toolkit
---]]
-
-local lain = require('lain')
 local awful = require('awful')
-local gears = require('gears')
-local beautiful = require('beautiful')
+local dbus = require('widgets.dbus_util')
+local wibox = require('wibox')
+local debug = require('gears.debug')
 
--- lookup table for discharging percentages
+local beautiful = require('beautiful')
+local naughty = require('naughty')
+
+local ICON_FT = beautiful.icon_font .. ' 21'
+
+-- connect to dbus signal
+local dest = 'org.freedesktop.UPower'
+local bus = 'system'
+local path = '/org/freedesktop/UPower/devices/battery_BAT0'
+local interface = 'org.freedesktop.DBus.Properties'
+local member = 'PropertiesChanged'
+
+-- sections of widget will update with polling
+local bat_icn = wibox.widget.textbox()
+bat_icn.font = ICON_FT
+bat_icn.align = 'center'
+
+local bat_txt = wibox.widget.textbox()
+bat_txt.font = beautiful.icon_font .. ' 11'
+
+local widget = wibox.widget{
+    bat_txt,
+    wibox.container.rotate(bat_icn,'east'),
+    spacing = 5,
+    layout = wibox.layout.fixed.horizontal,
+}
+
 local perc_discharge = {}
    perc_discharge [0  ] = utf8.char(62850)
    perc_discharge [10 ] = utf8.char(62841)
@@ -36,24 +58,36 @@ local perc_charg = {}
     perc_charg [100] = utf8.char(62851)
 
 
-local ret = lain.widget.bat({
-    timeout = 120,
-    settings = function()
-        widget.font = beautiful.taglist_font
-        widget.align = 'center'
-        widget.valign = 'center'
-        widget:buttons(awful.util.table.join(
-            awful.button({ }, 1, function() awful.screen.focused().battery_widget:update() end)))
-        --customize icon based on percentage
-        if bat_now.status == 'Discharging' then
-            local round_perc = bat_now.perc - (bat_now.perc % 10)
-            widget:set_markup(bat_now.perc .. "%")
-        else
-            local round_perc = bat_now.perc - (bat_now.perc % 10)
-            widget:set_markup(bat_now.perc .. "%")
-        end
+
+local function update_widget(percentage,state)
+    -- state: 1: charging, 2: dischargning
+    local round_perc = percentage - (percentage%10)
+    if state == 1 then
+        bat_icn.text = perc_charg[round_perc]
+    elseif state ==2 then
+        bat_icn.text = perc_discharge[round_perc]
+    else
+        naughty.notify({title='NEW BATTERY STATE', text = 'Number' .. tostring(state)})
     end
-})
+    bat_txt.text = tostring(percentage) .. '%' 
+end
+
+dbus.register_listener(bus,path,interface,member,function (data)
+    if data.Percentage ~= nil and data.State ~= nil then
+        update_widget(data.Percentage,data.State)
+    end
+   end)
 
 
-return ret
+-- start by polling the player to find out if anything is playing
+dbus.getProps(bus,dest,path,'org.freedesktop.UPower.Device',function (data)
+    if data == 'ERROR' then
+        -- we were unable to poll at this endpoint
+        naughty.notify({text = 'Error Getting Battery Level'})
+    else
+        -- update battery level
+        update_widget(data.Percentage,data.State)
+    end
+    end)
+
+return widget
