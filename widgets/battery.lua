@@ -47,11 +47,9 @@ local ret = lain.widget.bat({
         --customize icon based on percentage
         if bat_now.status == 'Discharging' then
             local round_perc = bat_now.perc - (bat_now.perc % 10)
-            --widget:set_markup(bat_now.perc .. '<span font= "SF Pro Display 26">' .. perc_discharge[round_perc] .. '</span>')
             widget:set_markup(bat_now.perc .. "%")
         else
             local round_perc = bat_now.perc - (bat_now.perc % 10)
-            --widget:set_markup(bat_now.perc .. '<span font= "SF Pro Display 26">' .. perc_charg[round_perc] .. '</span>')
             widget:set_markup(bat_now.perc .. "%")
         end
     end
