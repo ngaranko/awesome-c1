@@ -65,9 +65,8 @@ song_desc.valign = 'center'
 -- actual widget declaration
 
 local widget = wibox.widget{
-    song_desc,
+    wibox.container.constraint(song_desc,'max',275,75),
     {
-        -- media controls (in flexbox)
         rewind_btn,
         play_btn,
         fwd_btn,

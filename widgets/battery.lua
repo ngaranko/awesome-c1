@@ -63,12 +63,10 @@ local percentage = nil
 local function update_widget()
     -- state: 1: charging, 2: dischargning
     local round_perc = percentage - (percentage%10)
-    if state == 1 then
+    if state == 1 or state == 4 then
         bat_icn.text = perc_charg[round_perc]
     elseif state ==2 then
         bat_icn.text = perc_discharge[round_perc]
-    else
-        naughty.notify({title='NEW BATTERY STATE', text = 'Number' .. tostring(state)})
     end
     bat_txt.text = string.format('%.0f%%',percentage)
     -- notify user if battery is below 10%

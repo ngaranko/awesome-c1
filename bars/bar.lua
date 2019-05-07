@@ -16,6 +16,7 @@ function module.createbar(s)
     s.launch = launch
     s.layoutbox = awful.widget.layoutbox(s)
     s.systray = wibox.widget.systray()
+    s.volume_control = require('widgets.volume')
     s.systray.visible = false
     s.layoutbox:buttons(gears.table.join(
                         awful.button({}, 1, function() awful.layout.inc(1) end)))
@@ -43,6 +44,7 @@ function module.createbar(s)
         -- left widget
         {
             require('widgets.media_player'),
+            s.volume_control,
             s.layoutbox,
             s.textclock,
             require('widgets.battery'),
