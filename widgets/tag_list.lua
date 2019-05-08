@@ -14,11 +14,17 @@ local taglist_buttons = gears.table.join(
 
 return awful.widget.taglist ({
   screen  = s,
-    filter  = awful.widget.taglist.filter.all,
+    filter  = awful.widget.taglist.filter.noempty,
     layout  = wibox.layout.fixed.horizontal,
     widget_template = {
             {
                 id = 'taglist_widget',
+                {
+                    id = 'index_display',
+                    align = 'center',
+                    valign = 'center',
+                    widget = wibox.widget.textbox,
+                },
                 {
                     {
                      -- let the text role get set so we can use it
@@ -35,31 +41,13 @@ return awful.widget.taglist ({
                     right = 5,
                     widget = wibox.container.margin,
                 },
-                {
-                    id = 'index_box',
-                    {
-                        {
-                            -- index of the tag
-                            id     = 'index_role',
-                            align = 'center',
-                            valign = 'center',
-                            widget = wibox.widget.textbox,
-                        },
-                        margins = 0,
-                        widget  = wibox.container.margin,
-                    },
-                    bg     = beautiful.index_bg,
-                    shape  = gears.shape.circle,
-                    visible = false,
-                    widget = wibox.container.background,
-                },
-            layout = wibox.layout.stack,
+            layout = wibox.layout.fixed.horizontal,
             },
         id     = 'background_role',
         widget = wibox.container.background,
         -- Add support for hover colors and an index label
         create_callback = function(self, tag, index, tags) --luacheck: no unused args
-            self:get_children_by_id('index_role')[1].markup = '<b> ' .. tag.name .. ' </b>'
+            self:get_children_by_id('index_display')[1].markup = '<b> ' .. tag.name .. ' </b>'
             self:get_children_by_id('text_display')[1].text = beautiful.taglist_icons[tonumber(tag.name)]
             self:connect_signal('mouse::enter', function()
                 if  self.bg ~= beautiful.bg_focus then
@@ -80,7 +68,7 @@ return awful.widget.taglist ({
             end)
         end,
         update_callback = function(self, c3, index, objects) --luacheck: no unused args
-            self:get_children_by_id('index_role')[1].markup = '<b> '.. c3.name ..' </b>'
+            self:get_children_by_id('index_display')[1].markup = '<b> '.. c3.name ..' </b>'
         end,
     },
     buttons = taglist_buttons,

@@ -173,22 +173,10 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey, }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-    awful.key({modkey,  }, '`', 
-    function() 
-        for index,widget in ipairs(awful.screen.focused().taglist:get_children()) do
-            widget.taglist_widget.index_box:set_visible(true)
-        end
-    end,
-    function()
-        for index,widget in ipairs(awful.screen.focused().taglist:get_children()) do
-            widget.taglist_widget.index_box:set_visible(false)
-        end
-    end,
-    {description = 'show tag numbers'}),
     awful.key({ modkey, }, 't', function()
-        awful.screen.focused().systray.visible = not awful.screen.focused().systray.visible
-        end,
-        {descripton = 'toggle system tray'}),
+        local vis = awful.screen.focused().systray.visible
+        awful.screen.focused().systray.visible = not vis
+        end),
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
