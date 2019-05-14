@@ -1,12 +1,11 @@
 local awful = require('awful')
-local dbus = require('widgets.dbus_util')
+local dbus = require('util.dbus')
 local wibox = require('wibox')
-local debug = require('gears.debug')
 
 local beautiful = require('beautiful')
 local naughty = require('naughty')
 
-local ICON_FT = beautiful.icon_font .. ' 21'
+local ICON_FT = beautiful.icon_font .. '23'
 
 -- connect to dbus signal
 local dest = 'org.freedesktop.UPower'
@@ -21,7 +20,7 @@ bat_icn.font = ICON_FT
 bat_icn.align = 'center'
 
 local bat_txt = wibox.widget.textbox()
-bat_txt.font = beautiful.icon_font .. ' 11'
+bat_txt.font = beautiful.wibar_font
 
 local widget = wibox.widget{
     bat_txt,
@@ -70,7 +69,7 @@ local function update_widget()
     end
     bat_txt.text = string.format('%.0f%%',percentage)
     -- notify user if battery is below 10%
-    if percentage<=10 then
+    if percentage==10 then
         naughty.notify({title = 'Low Battery', text = 'Battery is getting low!'})
     end
 end

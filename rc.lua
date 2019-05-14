@@ -5,16 +5,21 @@ pcall(require, "luarocks.loader")
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
+-- Theme handling library
+local beautiful = require("beautiful")
+beautiful.init(require('theme'))
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
--- Theme handling library
-local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
-local bar = require("bars.bar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+-- gui features (top bar, client decorations)
+local bar = require("gui.bar")
+local titlebar = require('gui.custom_titlebar')
+
+
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -48,7 +53,6 @@ end
 -- beautifuls define colours, icons, font and wallpapers.
 
 -- This is used later as the default terminal and editor to run.
-beautiful.init(require('theme'))
 terminal = "konsole"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
@@ -121,9 +125,13 @@ local function set_wallpaper(s)
 end
 
 local function set_tags(s)
-    -- creates tags, using icons
     awful.tag(
-    { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+    {utf8.char(64610), 
+     utf8.char(64610), 
+     utf8.char(64610), 
+     utf8.char(64610), 
+     utf8.char(64610)
+     }, 
     s,
     awful.layout.layouts[1]
     ) 
@@ -161,7 +169,6 @@ globalkeys = gears.table.join(
     awful.key({         }, "XF86AudioPlay", function() awful.spawn("playerctl play-pause") end ),
     awful.key({         },"XF86AudioNext", function() awful.spawn("playerctl next") end),
     awful.key({         },"XF86AudioPrev", function() awful.spawn("playerctl previous") end),
-    awful.key({ modkey  }, "o",             awful.screen.focused().launch.spawn, {description = 'open new item on tag'}),
     awful.key({         }, "XF86AudioRaiseVolume", awful.screen.focused().volume_control.raise_volume, {description = 'raise volume'}),
     awful.key({         }, "XF86AudioLowerVolume", awful.screen.focused().volume_control.lower_volume, {description = 'lower volume'}),
     awful.key({         }, "XF86AudioMute", awful.screen.focused().volume_control.toggle_mute, {description = 'toggle mute'}),
@@ -431,7 +438,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
+      }, properties = { titlebars_enabled = true }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -453,10 +460,8 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
-    -- set rounded corners
-    c.shape = function (cr,w,h)
-        gears.shape.rounded_rect(cr,w,h,beautiful.corner_radius)
-    end
+    -- round corners less than titlebar amount to avoid aliasing
+    c.shape = function (cr,w,h) return gears.shape.rounded_rect(cr,w,h,beautiful.corner_radius-2) end
 end)
 
 client.connect_signal("request::activate", function(client,context,hints)
@@ -465,41 +470,7 @@ client.connect_signal("request::activate", function(client,context,hints)
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
-    -- buttons for the titlebar
-    local buttons = gears.table.join(
-        awful.button({ }, 1, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.move(c)
-        end),
-        awful.button({ }, 3, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.resize(c)
-        end)
-    )
-    awful.titlebar.enable_tooltip = false
-    awful.titlebar(c,{size = beautiful.titlebar_height}) : setup {
-        { -- Left
-            awful.titlebar.widget.closebutton    (c),
-            awful.titlebar.widget.minimizebutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            layout = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            buttons = buttons,
-            layout = wibox.layout.fixed.horizontal
-        },
-        layout = wibox.layout.align.horizontal
-    }
-end)
+client.connect_signal("request::titlebars", titlebar.create_titlebar)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
@@ -509,7 +480,12 @@ client.connect_signal("mouse::enter", function(c)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-awful.spawn(gears.filesystem.get_configuration_dir().. 'autostart.sh')
+client.connect_signal("focus", function(c) 
+    c.border_color = beautiful.border_focus 
+    titlebar.focus_titlebar(c)
+    end)
+client.connect_signal("unfocus", function(c) 
+    c.border_color = beautiful.border_normal 
+    titlebar.unfocus_titlebar(c)
+end)
 -- }}}

@@ -2,7 +2,6 @@ local shape = require('gears.shape')
 local awful = require('awful')
 local wibox = require('wibox')
 local beautiful = require('beautiful')
-local font = beautiful.icon_font .. ' 21'
 
 local current_vol = nil
 local mute = nil
@@ -17,7 +16,7 @@ local volume_table = {
 
 
 local volume_icn = wibox.widget.textbox()
-volume_icn.font = font
+volume_icn.font = beautiful.icon_font .. '17'
 
 local volume_slider = wibox.widget{
     bar_shape = shape.rounded_rect,
@@ -25,8 +24,8 @@ local volume_slider = wibox.widget{
     bar_color = beautiful.fg_normal,
     handle_color = beautiful.fg_normal,
     handle_shape = shape.circle,
-    handle_border_color = '#39194a',
-    handle_border_width = 2,
+    handle_border_color = beautiful.bg_normal,
+    handle_border_width = 3,
     value = 0,
     forced_width = 75,
     widget = wibox.widget.slider,
@@ -37,7 +36,11 @@ volume_slider:connect_signal('property::value',function(state)
 end)
 
 local widget = wibox.widget{
-    volume_icn,
+    {
+        volume_icn,
+        top = 3,
+        widget = wibox.container.margin,
+    },
     volume_slider,
     layout = wibox.layout.fixed.horizontal,
     spacing = 7,
