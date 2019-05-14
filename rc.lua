@@ -53,7 +53,7 @@ end
 -- beautifuls define colours, icons, font and wallpapers.
 
 -- This is used later as the default terminal and editor to run.
-terminal = "konsole"
+terminal = "termite"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -83,26 +83,6 @@ awful.layout.layouts = {
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
 }
--- }}}
-
--- {{{ Menu
--- Create a launcher widget and a main menu
-myawesomemenu = {
-   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end },
-}
-
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
-                        })
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
-
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
@@ -151,7 +131,6 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
@@ -159,19 +138,12 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
-    awful.key({ modkey, "Shift"   }, "n",
-        function()
-            local tag = awful.tag.selected()
-                for i=1, #tag:clients() do
-                    tag:clients()[i].minimized=false
-            end
-        end),
-    awful.key({         }, "XF86AudioPlay", function() awful.spawn("playerctl play-pause") end ),
-    awful.key({         },"XF86AudioNext", function() awful.spawn("playerctl next") end),
-    awful.key({         },"XF86AudioPrev", function() awful.spawn("playerctl previous") end),
-    awful.key({         }, "XF86AudioRaiseVolume", awful.screen.focused().volume_control.raise_volume, {description = 'raise volume'}),
-    awful.key({         }, "XF86AudioLowerVolume", awful.screen.focused().volume_control.lower_volume, {description = 'lower volume'}),
-    awful.key({         }, "XF86AudioMute", awful.screen.focused().volume_control.toggle_mute, {description = 'toggle mute'}),
+    awful.key({         }, "XF86AudioPlay", function() awful.spawn("playerctl play-pause") end,  {descripton = 'last song' ,group = 'audio controls'}),
+    awful.key({         },"XF86AudioNext", function() awful.spawn("playerctl next") end ,{descripton = 'last song' ,group = 'audio controls'} ),
+    awful.key({         },"XF86AudioPrev", function() awful.spawn("playerctl previous") end, {descripton = 'last song' ,group = 'audio controls'}),
+    awful.key({         }, "XF86AudioRaiseVolume", awful.screen.focused().volume_control.raise_volume, {description = 'raise volume' , group ='audio controls'}),
+    awful.key({         }, "XF86AudioLowerVolume", awful.screen.focused().volume_control.lower_volume, {description = 'lower volume', group = 'audio controls'}),
+    awful.key({         }, "XF86AudioMute", awful.screen.focused().volume_control.toggle_mute, {description = 'toggle mute', group = 'audio controls'}),
     awful.key({ modkey, }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey, }, "Left",   awful.tag.viewprev,
@@ -180,10 +152,6 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey, }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-    awful.key({ modkey, }, 't', function()
-        local vis = awful.screen.focused().systray.visible
-        awful.screen.focused().systray.visible = not vis
-        end),
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
@@ -196,9 +164,6 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
-
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
@@ -461,7 +426,7 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
     -- round corners less than titlebar amount to avoid aliasing
-    c.shape = function (cr,w,h) return gears.shape.rounded_rect(cr,w,h,beautiful.corner_radius-2) end
+    c.shape = function (cr,w,h) return gears.shape.rounded_rect(cr,w,h,beautiful.corner_radius-3) end
 end)
 
 client.connect_signal("request::activate", function(client,context,hints)

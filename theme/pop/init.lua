@@ -12,11 +12,11 @@ local shape = require('gears.shape')
 -- color scheme
 
 local colors = { 
-    '#011627', --black
+    '#011627', -- black
     '#fdfffc', -- white
     '#4fdac4', -- sea green
     '#e53b6f', -- bright red
-    '#ffa528'  -- orange    
+    '#F4B8C9', -- redish white mix
 }
 
 local invisible = '#12345600'
@@ -32,10 +32,12 @@ t.fg_focus              = colors[2]
 t.wallpaper     = theme_root .. 'wallpaper.jpg'
 t.font = font .. '11'
 t.icon_font         = 'Monaco Nerd Font '
+t.icon_theme        = 'Paprius-Light'
 
 -- CLIENT SECTION
 
 t.corner_radius = dpi(5)
+t.cust_border_width = dpi(4) -- use this to change side width
 t.border_width  = dpi(0)
 t.border_normal = invisible
 t.border_focus  = invisible
@@ -99,7 +101,7 @@ t.wibar_height          = dpi(40)
 --CUSTOM WIBAR VARS
 
 t.wibar_inner_bg        = colors[4]
-t.wibar_radius          = dpi(9)
+t.wibar_radius          = dpi(12)
 
 -- TAG SECTION --
 t.master_width_factor = 0.6
@@ -110,17 +112,6 @@ t.master_count = 1
 t.column_count = 1
 
 --TAGLIST SECTION --
-t.taglist_icons = {
-    utf8.char(64610), -- square
-    utf8.char(64610), -- square
-    utf8.char(64610), -- square
-    utf8.char(64610), -- square
-    utf8.char(64610), -- square
-    utf8.char(64610), -- square
-    utf8.char(64610), -- square
-    utf8.char(64610), -- square
-    utf8.char(64610), -- square
-}
 local layout_ic = theme_root .. '/icons/layouts/'
 t.layout_tile = layout_ic .. 'tiled.svg'
 t.layout_floating = layout_ic .. 'floating.svg'
@@ -129,6 +120,7 @@ t.taglist_height     = dpi(40)
 t.taglist_spacing   = dpi(9)
 t.taglist_font      = 'Monaco Nerd Font 14'
 t.taglist_bg_focus  = colors[4]
+t.taglist_fg_occupied = colors[5]
 
 -- SYSTEM TRAY SECTION
 

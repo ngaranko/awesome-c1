@@ -6,6 +6,9 @@ local gears = require('gears')
 
 local module = {}
 
+local vsize = beautiful.corner_radius
+local hsize = beautiful.cust_border_width
+
 function module.create_titlebar(client)
     local buttons = gears.table.join(
         awful.button({ }, 1, function()
@@ -18,8 +21,8 @@ function module.create_titlebar(client)
         end)
     )
     awful.titlebar.enable_tooltip = false
-    for i,pos in ipairs({'top','left','right','bottom'}) do
-        awful.titlebar(client,{size = beautiful.corner_radius, position = pos}) : setup {
+    for pos,thic in pairs({top = vsize,left = hsize,right = hsize, bottom = vsize}) do
+        awful.titlebar(client,{size = thic, position = pos}) : setup {
             {
                 text = '',
                 widget = wibox.widget.textbox, 
@@ -41,17 +44,17 @@ function module.create_titlebar(client)
 end
 
 function module.focus_titlebar(client)
-    if not client.requests_no_titlebar then
-        for i, pos in ipairs({'top','left','right','bottom'}) do
-            awful.titlebar(client,{size = beautiful.corner_radius, position = pos}).custom_bg.bg = beautiful.titlebar_bg_focus_custom
+    if not client.requests_no_titlebar then 
+        for pos,thic in pairs({top = vsize,left = hsize,right = hsize, bottom = vsize}) do
+            awful.titlebar(client,{size = thic, position = pos}).custom_bg.bg = beautiful.titlebar_bg_focus_custom
         end
     end
 end
 
 function module.unfocus_titlebar(client)
     if not client.requests_no_titlebar then
-        for i, pos in ipairs({'top','left','right','bottom'}) do
-            awful.titlebar(client,{size = beautiful.corner_radius, position = pos}).custom_bg.bg = beautiful.titlebar_bg_normal_custom    
+        for pos,thic in pairs({top = vsize,left = hsize,right = hsize, bottom = vsize}) do
+            awful.titlebar(client,{size = thic, position = pos}).custom_bg.bg = beautiful.titlebar_bg_normal_custom    
         end
     end
 end

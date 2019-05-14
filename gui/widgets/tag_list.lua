@@ -29,21 +29,13 @@ return awful.widget.taglist ({
         -- Add support for hover colors and an index label
         create_callback = function(self, tag, index, tags) 
             self:connect_signal('mouse::enter', function()
-                if  self.bg ~= beautiful.bg_focus then
-                    self.backup     = self.bg
-                    self.has_backup = true
-                    local tag = awful.screen.focused().tags[index]
-                    self.backup_sel = tag.selected
-                    self.bg = beautiful.bg_focus
+                if  self.fg ~= beautiful.bg_focus then
+                    self.fg = beautiful.bg_focus
                 end
                 
             end)
             self:connect_signal('mouse::leave', function()
-                local tag = awful.screen.focused().tags[index]
-                if self.has_backup and self.backup_sel == tag.selected then 
-                    self.bg = self.backup 
-                    self.has_backup = false
-                end
+                self.fg = beautiful.fg_normal 
             end)
         end,
         update_callback = function(self, tag, index, taglist) 
