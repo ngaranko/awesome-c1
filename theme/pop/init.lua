@@ -37,7 +37,7 @@ t.icon_theme        = 'Paprius-Light'
 -- CLIENT SECTION
 
 t.corner_radius = dpi(5)
-t.cust_border_width = dpi(4) -- use this to change side width
+t.cust_border_width = dpi(5) -- use this to change side width
 t.border_width  = dpi(0)
 t.border_normal = invisible
 t.border_focus  = invisible

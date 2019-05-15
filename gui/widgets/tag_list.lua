@@ -28,11 +28,8 @@ return awful.widget.taglist ({
         widget = wibox.container.background,
         -- Add support for hover colors and an index label
         create_callback = function(self, tag, index, tags) 
-            self:connect_signal('mouse::enter', function()
-                if  self.fg ~= beautiful.bg_focus then
-                    self.fg = beautiful.bg_focus
-                end
-                
+            self:connect_signal('mouse::enter', function(result)
+                self.fg = beautiful.bg_focus 
             end)
             self:connect_signal('mouse::leave', function()
                 self.fg = beautiful.fg_normal 
