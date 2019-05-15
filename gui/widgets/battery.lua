@@ -24,8 +24,8 @@ bat_txt.font = beautiful.wibar_font
 
 local widget = wibox.widget{
     bat_txt,
-    wibox.container.rotate(bat_icn,'east'),
-    spacing = 5,
+    wibox.container.rotate(bat_icn,'west'),
+    spacing = 0,
     layout = wibox.layout.fixed.horizontal,
 }
 
