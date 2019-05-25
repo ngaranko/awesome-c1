@@ -18,11 +18,16 @@ return awful.widget.taglist ({
   screen  = s,
     filter  = awful.widget.taglist.filter.all,
     widget_template = {
-        {    
-            id = 'text_role',
-            widget = wibox.widget.textbox,
-            align = 'center',
-            valign = 'center',
+        {
+            {    
+                id = 'text_role',
+                widget = wibox.widget.textbox,
+                align = 'center',
+                valign = 'center',
+            },
+            left = 5,
+            right = 5,
+            widget = wibox.container.margin,
         },
         id     = 'background_role',
         widget = wibox.container.background,
