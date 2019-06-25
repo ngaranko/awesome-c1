@@ -2,7 +2,7 @@
 local wibox = require('wibox')
 local beautiful = require('beautiful')
 
-local chevron = wibox.widget.textbox(utf8.char(63036))
+local chevron = wibox.widget.textbox("Tray")
 chevron.font =  beautiful.icon_font .. '22'
 chevron.valign = 'center'
 chevron.align = 'center'
@@ -23,15 +23,15 @@ local widget = wibox.widget{
 -- when clicked, open systray
 widget:connect_signal('mouse::enter', function(textbox)
     systray.visible = true
-    chevron.text = utf8.char(63037)
+    chevron.text = "Tray"
 end)
 
 widget:connect_signal('mouse::leave', function(textbox)
-    systray.visible = false
-    chevron.text = utf8.char(63036)
+    systray.visible = true
+    chevron.text = "Tray"
 end)
 
 -- fun bug means that the systray does not work unless we hide it a bit later
-require('gears.timer').delayed_call(function() systray.visible = false end)
+require('gears.timer').delayed_call(function() systray.visible = true end)
 
 return widget

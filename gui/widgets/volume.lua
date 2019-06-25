@@ -7,10 +7,10 @@ local current_vol = nil
 local mute = nil
 
 local volume_table = {
-    high = utf8.char(64125),
-    low = utf8.char(64127),
-    off = utf8.char(64126),
-    mute = utf8.char(64128),
+    high = "H",
+    low = "L",
+    off = "X",
+    mute = "M",
 }
 
 

@@ -30,17 +30,17 @@ local widget = wibox.widget{
 }
 
 local perc_discharge = {}
-   perc_discharge [0  ] = utf8.char(62850)
-   perc_discharge [10 ] = utf8.char(62841)
-   perc_discharge [20 ] = utf8.char(62842)
-   perc_discharge [30 ] = utf8.char(62843)
-   perc_discharge [40 ] = utf8.char(62844)
-   perc_discharge [50 ] = utf8.char(62845)
-   perc_discharge [60 ] = utf8.char(62846)
-   perc_discharge [70 ] = utf8.char(62847)
-   perc_discharge [80 ] = utf8.char(62848)
-   perc_discharge [90 ] = utf8.char(62849)
-   perc_discharge [100] = utf8.char(62840)
+   perc_discharge [0  ] = " "
+   perc_discharge [10 ] = " "
+   perc_discharge [20 ] = " "
+   perc_discharge [30 ] = " "
+   perc_discharge [40 ] = " "
+   perc_discharge [50 ] = " "
+   perc_discharge [60 ] = " "
+   perc_discharge [70 ] = " "
+   perc_discharge [80 ] = " "
+   perc_discharge [90 ] = " "
+   perc_discharge [100] = " "
 
 --lookup table for charging percentages
 local perc_charg = {}

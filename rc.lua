@@ -13,6 +13,7 @@ require("awful.autofocus")
 local wibox = require("wibox")
 -- Notification library
 local naughty = require("naughty")
+local lain    = require("lain")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- gui features (top bar, client decorations)
@@ -53,7 +54,7 @@ end
 -- beautifuls define colours, icons, font and wallpapers.
 
 -- This is used later as the default terminal and editor to run.
-terminal = "termite"
+terminal = "xfce4-terminal"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -67,7 +68,11 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.floating,
+    lain.layout.centerwork,
+    awful.layout.suit.max,
+    --awful.layout.suit.floating,
+    awful.layout.suit.spiral,
+    awful.layout.suit.magnifier
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
@@ -106,15 +111,16 @@ end
 
 local function set_tags(s)
     awful.tag(
-    {utf8.char(64610), 
-     utf8.char(64610), 
-     utf8.char(64610), 
-     utf8.char(64610), 
-     utf8.char(64610)
-     }, 
-    s,
-    awful.layout.layouts[1]
-    ) 
+      {
+        "Browser",
+        "Terminal",
+        "Emacs",
+        "Chats",
+        "Email"
+      },
+      s,
+      awful.layout.layouts[1]
+    )
     end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
@@ -126,6 +132,22 @@ awful.screen.connect_for_each_screen(function(s)
     bar.createbar(s)
 end)
 
+-- Autostart windowless processes
+local function run_once(cmd_arr)
+  for _, cmd in ipairs(cmd_arr) do
+    findme = cmd
+    firstspace = cmd:find(" ")
+    if firstspace then
+      findme = cmd:sub(0, firstspace-1)
+    end
+    awful.spawn.with_shell(string.format("pgrep -u $USER -x %s > /dev/null || (%s)", findme, cmd))
+  end
+end
+
+-- entries must be comma-separated
+run_once({ "blueman-applet" }) -- Fix java problem
+run_once({ "nm-applet -sm-disable" }) -- Network manager tray icon
+awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
 
 -- }}}
 
@@ -138,12 +160,27 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+  -- ALSA volume control
+  awful.key({  }, "XF86AudioRaiseVolume",
+    function ()
+      os.execute("amixer -q -D pulse sset Master 10%+")
+    end,
+    {description = "volume up", group = "hotkeys"}),
+  awful.key({  }, "XF86AudioLowerVolume",
+    function ()
+      os.execute("amixer -q -D pulse sset Master 10%-")
+    end,
+    {description = "volume down", group = "hotkeys"}),
+  awful.key({  }, "XF86AudioMute",
+    function ()
+      os.execute("amixer -q set Master toggle")
+      beautiful.volume.update()
+    end,
+    {description = "toggle mute", group = "hotkeys"}),
+  
     awful.key({         }, "XF86AudioPlay", function() awful.spawn("playerctl play-pause") end,  {descripton = 'last song' ,group = 'audio controls'}),
     awful.key({         },"XF86AudioNext", function() awful.spawn("playerctl next") end ,{descripton = 'last song' ,group = 'audio controls'} ),
     awful.key({         },"XF86AudioPrev", function() awful.spawn("playerctl previous") end, {descripton = 'last song' ,group = 'audio controls'}),
-    awful.key({         }, "XF86AudioRaiseVolume", awful.screen.focused().volume_control.raise_volume, {description = 'raise volume' , group ='audio controls'}),
-    awful.key({         }, "XF86AudioLowerVolume", awful.screen.focused().volume_control.lower_volume, {description = 'lower volume', group = 'audio controls'}),
-    awful.key({         }, "XF86AudioMute", awful.screen.focused().volume_control.toggle_mute, {description = 'toggle mute', group = 'audio controls'}),
     awful.key({ modkey, }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey, }, "Left",   awful.tag.viewprev,

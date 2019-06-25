@@ -13,8 +13,6 @@ local module = {}
 function module.createbar(s)
     s.layoutbox = awful.widget.layoutbox(s)
     s.volume_control = require('gui.widgets.volume')
-    s.layoutbox:buttons(gears.table.join(
-                        awful.button({}, 1, function() awful.layout.inc(1) end)))
     s.promptbox = awful.widget.prompt()
     s.textclock = wibox.widget.textclock('%a,  %b %_d <b>%_I:%M %p</b>')
     s.textclock.valign = 'center'
@@ -38,16 +36,15 @@ function module.createbar(s)
                 },
                 --middle widget
                 {
-                    layout = wibox.layout.fixed.horizontal,                    
+                    layout = wibox.layout.fixed.horizontal,
                 },
                 -- left widget
                 {
-                    require('gui.widgets.media_player'),
                     s.volume_control,
                     s.layoutbox,
                     s.textclock,
+                    wibox.widget.systray(),
                     require('gui.widgets.battery'),
-                    require('gui.widgets.systray_container'),
                     spacing = 10,
                     layout = wibox.layout.fixed.horizontal,
                 },
