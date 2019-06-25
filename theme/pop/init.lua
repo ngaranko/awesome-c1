@@ -47,7 +47,7 @@ t.border_marked = invisible
 
 -- TITLEBAR SECTION
 
-t.titlebar_height = dpi(27)
+t.titlebar_height = dpi(20)
 t.titlebar_fg_normal    = colors[1]
 t.titlebar_bg_normal    = t.border_normal
 t.titlebar_fg_focus     = colors[3]
@@ -105,7 +105,7 @@ t.wibar_radius          = dpi(12)
 
 -- TAG SECTION --
 t.master_width_factor = 0.6
-t.useless_gap = dpi(8)
+t.useless_gap = dpi(2)
 t.gap_single_client = true
 t.master_fill_policy = 'expand'
 t.master_count = 1

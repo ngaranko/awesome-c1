@@ -32,7 +32,7 @@ function module.createbar(s)
                     taglist.make_tag_list(s),
                     s.promptbox,
                     layout = wibox.layout.fixed.horizontal,
-                    spacing = 10,
+                    spacing = 4,
                 },
                 --middle widget
                 {
@@ -45,7 +45,7 @@ function module.createbar(s)
                     s.textclock,
                     wibox.widget.systray(),
                     require('gui.widgets.battery'),
-                    spacing = 10,
+                    spacing = 4,
                     layout = wibox.layout.fixed.horizontal,
                 },
                 layout = wibox.layout.align.horizontal,
@@ -54,10 +54,10 @@ function module.createbar(s)
         shape = function (cr,w,h) return gears.shape.rounded_rect(cr,w,h,beautiful.wibar_radius) end,
         widget = wibox.container.background,
         },
-        left = 5,
-        right = 5,
+        left = 2,
+        right = 2,
         bottom = 0,
-        top = 5,
+        top = 2,
         widget = wibox.container.margin,
     })
 end
