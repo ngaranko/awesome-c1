@@ -116,7 +116,10 @@ local function set_tags(s)
         "Terminal",
         "Emacs",
         "Chats",
-        "Email"
+        "Email",
+        "Media",
+        "Downloads",
+        "Random"
       },
       s,
       awful.layout.layouts[1]
