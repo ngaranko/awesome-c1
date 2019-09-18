@@ -80,11 +80,11 @@ t.titlebar_maximized_button_focus_active_hover = titlebar_ic .. "max_focus_hover
 --TOOLTIP SECTION
 
 t.tooltip_border_color  = colors[1] 
-t.tooltip_bg            = colors[3]
-t.tooltip_fg            = colors[1]
+t.tooltip_bg            = colors[1]
+t.tooltip_fg            = colors[2]
 t.tooltip_font          = font .. '9'
 t.tooltip_border_width  = dpi(1)
-t.tooltip_opacity       = 50
+t.tooltip_opacity       = 40
 t.tooltip_shape         = function(cr,w,h) shape.rounded_rect(cr,w,h,3) end
 -- WIBAR SECTION
 
@@ -128,9 +128,9 @@ t.systray_icon_spacing = dpi(1)
 
 -- NOTIFICATION THEME
 t.notification_font = font .. '10'
-t.notification_bg   =  colors[3]
-t.notification_max_width = dpi(500)
-t.notification_icon_size = 75
+t.notification_bg   =  colors[1]
+t.notification_max_width = dpi(300)
+t.notification_icon_size = 20
 t.notification_shape = function(cr,w,h) return shape.rounded_rect(cr,w,h,5) end
 
 return t

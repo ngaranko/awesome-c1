@@ -151,7 +151,25 @@ end
 -- entries must be comma-separated
 run_once({ "blueman-applet" }) -- Fix java problem
 run_once({ "nm-applet -sm-disable" }) -- Network manager tray icon
-awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
+run_once({ "xfce4-power-manager" }) -- Power manager
+-- awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
+
+local function set_things_up()
+  local handle = io.popen("xrandr | grep 'HDMI-2 connected'")
+  local result = handle:read("*a")
+  handle:close()
+
+  if result == "" then
+    awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
+    run_once({"feh --bg-scale /home/ngaranko/Pictures/hot-rod-model-a-stanceworks-wallpaper.jpg"})
+  else
+    awful.util.spawn("xrandr --output HDMI-2 --primary --left-of eDP-1")
+    awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
+    run_once({"feh --bg-scale /home/ngaranko/Pictures/volkswagen_golf_mk1_yellow_front_view_107928_2560x1080.jpg --bg-scale /home/ngaranko/Pictures/rusty-slammington-desktop-wallpaper.jpg"})
+  end
+end
+
+set_things_up()
 
 -- }}}
 
