@@ -12,7 +12,7 @@ local widget = wibox.container.margin()
 widget.left = 9
 
 local spawner = wibox.widget.textbox()
-spawner.text = utf8.char(63764)
+spawner.text = "c"
 spawner.align = 'center'
 spawner.valign = 'center'
 spawner.font = beautiful.icon_font .. '17'

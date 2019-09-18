@@ -119,7 +119,8 @@ local function set_tags(s)
         "Email",
         "Media",
         "Downloads",
-        "Random"
+        "Random",
+        "Background"
       },
       s,
       awful.layout.layouts[1]
@@ -262,8 +263,12 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().promptbox:run() end,
-              {description = "run prompt", group = "launcher"}),
+
+    awful.key({ modkey }, "r", function ()
+        os.execute(string.format("rofi -show %s --theme monikai",
+                                 'run'))
+                               end,
+      {description = "show rofi", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -477,20 +482,3 @@ end)
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", titlebar.create_titlebar)
 
--- Enable sloppy focus, so that focus follows mouse.
-client.connect_signal("mouse::enter", function(c)
-    --disable sloppy focus in floating mode
-    if awful.layout.get(c.screen) ~= awful.layout.suit.floating then
-        c:emit_signal("request::activate", "mouse_enter", {raise = false})
-    end
-end)
-
-client.connect_signal("focus", function(c) 
-    c.border_color = beautiful.border_focus 
-    titlebar.focus_titlebar(c)
-    end)
-client.connect_signal("unfocus", function(c) 
-    c.border_color = beautiful.border_normal 
-    titlebar.unfocus_titlebar(c)
-end)
--- }}}

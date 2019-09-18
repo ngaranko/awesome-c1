@@ -5,7 +5,7 @@ local wibox = require('wibox')
 local beautiful = require('beautiful')
 local naughty = require('naughty')
 
-local ICON_FT = beautiful.icon_font .. '23'
+local ICON_FT = beautiful.icon_font .. '5'
 
 -- connect to dbus signal
 local dest = 'org.freedesktop.UPower'
@@ -44,17 +44,17 @@ local perc_discharge = {}
 
 --lookup table for charging percentages
 local perc_charg = {}
-    perc_charg [0  ] = utf8.char(62851)
-    perc_charg [10 ] = utf8.char(62851)
-    perc_charg [20 ] = utf8.char(62851)
-    perc_charg [30 ] = utf8.char(62851)
-    perc_charg [40 ] = utf8.char(62851)
-    perc_charg [50 ] = utf8.char(62851)
-    perc_charg [60 ] = utf8.char(62851)
-    perc_charg [70 ] = utf8.char(62851)
-    perc_charg [80 ] = utf8.char(62851)
-    perc_charg [90 ] = utf8.char(62851)
-    perc_charg [100] = utf8.char(62851)
+    perc_charg [0  ] = " "
+    perc_charg [10 ] = " "
+    perc_charg [20 ] = " "
+    perc_charg [30 ] = " "
+    perc_charg [40 ] = " "
+    perc_charg [50 ] = " "
+    perc_charg [60 ] = " "
+    perc_charg [70 ] = " "
+    perc_charg [80 ] = " "
+    perc_charg [90 ] = " "
+    perc_charg [100] = " "
 
 local state = nil
 local percentage = nil

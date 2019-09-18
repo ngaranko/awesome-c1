@@ -13,10 +13,10 @@ local shape = require('gears.shape')
 
 local colors = { 
     '#011627', -- black
-    '#fdfffc', -- white
-    '#4fdac4', -- sea green
-    '#e53b6f', -- bright red
-    '#F4B8C9', -- redish white mix
+    '#cfcfcf', -- '#fdfffc', -- white
+    '#c4ff2e', -- '#4fdac4', -- sea green
+    '#4e4f4f', -- '#e53b6f', -- bright red
+    '#ffffff', -- '#F4B8C9', -- redish white mix
 }
 
 local invisible = '#12345600'
@@ -30,14 +30,14 @@ t.bg_focus              = colors[3]
 t.fg_focus              = colors[2]
 
 t.wallpaper     = theme_root .. 'wallpaper.jpg'
-t.font = font .. '11'
+t.font = font .. '10'
 t.icon_font         = 'Monaco Nerd Font '
 t.icon_theme        = 'Paprius-Light'
 
 -- CLIENT SECTION
 
-t.corner_radius = dpi(5)
-t.cust_border_width = dpi(5) -- use this to change side width
+t.corner_radius = dpi(3)
+t.cust_border_width = dpi(3) -- use this to change side width
 t.border_width  = dpi(0)
 t.border_normal = invisible
 t.border_focus  = invisible
@@ -47,7 +47,7 @@ t.border_marked = invisible
 
 -- TITLEBAR SECTION
 
-t.titlebar_height = dpi(20)
+t.titlebar_height = dpi(10)
 t.titlebar_fg_normal    = colors[1]
 t.titlebar_bg_normal    = t.border_normal
 t.titlebar_fg_focus     = colors[3]
@@ -82,7 +82,7 @@ t.titlebar_maximized_button_focus_active_hover = titlebar_ic .. "max_focus_hover
 t.tooltip_border_color  = colors[1] 
 t.tooltip_bg            = colors[3]
 t.tooltip_fg            = colors[1]
-t.tooltip_font          = font .. '10'
+t.tooltip_font          = font .. '9'
 t.tooltip_border_width  = dpi(1)
 t.tooltip_opacity       = 50
 t.tooltip_shape         = function(cr,w,h) shape.rounded_rect(cr,w,h,3) end
@@ -90,13 +90,13 @@ t.tooltip_shape         = function(cr,w,h) shape.rounded_rect(cr,w,h,3) end
 
 t.wibar_border_color    = invisible
 t.wibar_border_width    = dpi(0)
-t.wibar_ontop           = false
+t.wibar_ontop           = true
 t.wibar_type            = 'dock'
-t.wibar_font            = font .. '13'
-t.wibar_fg              = colors[2]
+t.wibar_font            = font .. '10'
+t.wibar_fg              = colors[0]
 t.wibar_bg              = invisible
 t.wibar_shape           = shape.rectangle
-t.wibar_height          = dpi(40)
+t.wibar_height          = dpi(30)
 
 --CUSTOM WIBAR VARS
 
@@ -116,9 +116,9 @@ local layout_ic = theme_root .. '/icons/layouts/'
 t.layout_tile = layout_ic .. 'tiled.svg'
 t.layout_floating = layout_ic .. 'floating.svg'
 t.taglist_fg_focus  = colors[3]
-t.taglist_height     = dpi(40)
+t.taglist_height     = dpi(30)
 t.taglist_spacing   =  dpi(0)
-t.taglist_font      = 'Monaco Nerd Font 14'
+t.taglist_font      = 'Monaco Nerd Font 10'
 t.taglist_bg_focus  = colors[4]
 t.taglist_fg_occupied = colors[5]
 
@@ -127,7 +127,7 @@ t.taglist_fg_occupied = colors[5]
 t.systray_icon_spacing = dpi(1)
 
 -- NOTIFICATION THEME
-t.notification_font = font .. '13'
+t.notification_font = font .. '10'
 t.notification_bg   =  colors[3]
 t.notification_max_width = dpi(500)
 t.notification_icon_size = 75
