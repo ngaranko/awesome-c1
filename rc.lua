@@ -152,6 +152,7 @@ end
 run_once({ "blueman-applet" }) -- Fix java problem
 run_once({ "nm-applet -sm-disable" }) -- Network manager tray icon
 run_once({ "xfce4-power-manager" }) -- Power manager
+run_once({ "/usr/bin/numlockx off" }) -- dusable numlock
 -- awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
 
 local function set_things_up()
@@ -195,14 +196,26 @@ globalkeys = gears.table.join(
     {description = "volume down", group = "hotkeys"}),
   awful.key({  }, "XF86AudioMute",
     function ()
-      os.execute("amixer -q set Master toggle")
+      os.execute("amixer -q -D pulse sset Master toggle")
       beautiful.volume.update()
     end,
     {description = "toggle mute", group = "hotkeys"}),
   
-    awful.key({         }, "XF86AudioPlay", function() awful.spawn("playerctl play-pause") end,  {descripton = 'last song' ,group = 'audio controls'}),
-    awful.key({         },"XF86AudioNext", function() awful.spawn("playerctl next") end ,{descripton = 'last song' ,group = 'audio controls'} ),
-    awful.key({         },"XF86AudioPrev", function() awful.spawn("playerctl previous") end, {descripton = 'last song' ,group = 'audio controls'}),
+  awful.key({         }, "XF86AudioPlay",
+    function()
+      awful.spawn("dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
+    end,
+    {descripton = 'last song' ,group = 'audio controls'}),
+    awful.key({         },"XF86AudioNext",
+      function()
+        awful.spawn("dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
+      end,
+      {descripton = 'last song' ,group = 'audio controls'} ),
+    awful.key({         },"XF86AudioPrev",
+      function()
+        awful.spawn("dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
+      end,
+      {descripton = 'last song' ,group = 'audio controls'}),
     awful.key({ modkey, }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey, }, "Left",   awful.tag.viewprev,
