@@ -90,7 +90,7 @@ t.tooltip_shape         = function(cr,w,h) shape.rounded_rect(cr,w,h,3) end
 
 t.wibar_border_color    = invisible
 t.wibar_border_width    = dpi(0)
-t.wibar_ontop           = true
+t.wibar_ontop           = false
 t.wibar_type            = 'dock'
 t.wibar_font            = font .. '10'
 t.wibar_fg              = colors[0]
