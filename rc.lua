@@ -152,8 +152,7 @@ end
 run_once({ "blueman-applet" }) -- Fix java problem
 run_once({ "nm-applet -sm-disable" }) -- Network manager tray icon
 run_once({ "xfce4-power-manager" }) -- Power manager
-run_once({ "/usr/bin/numlockx off" }) -- dusable numlock
--- awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
+run_once({ "/usr/bin/numlockx off" }) -- disable numlock
 
 local function set_things_up()
   local handle = io.popen("xrandr | grep 'HDMI-0 connected'")
@@ -171,10 +170,12 @@ local function set_things_up()
 
 
   local h2 = io.popen("xinput -list | grep -i key | grep HHKB")
-  local resul2 = h2:read("*a")
+  local result2 = h2:read("*a")
   h2:close()
-  if result == "" then
+  if result2 == "" then
     awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
+  else
+    awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle")
   end
 end
 

@@ -23,24 +23,24 @@ local bat_txt = wibox.widget.textbox()
 bat_txt.font = beautiful.wibar_font
 
 local widget = wibox.widget{
-    bat_txt,
     wibox.container.rotate(bat_icn,'west'),
-    spacing = 0,
+    bat_txt,
+    spacing = 1,
     layout = wibox.layout.fixed.horizontal,
 }
 
 local perc_discharge = {}
-   perc_discharge [0  ] = " "
-   perc_discharge [10 ] = " "
-   perc_discharge [20 ] = " "
-   perc_discharge [30 ] = " "
-   perc_discharge [40 ] = " "
-   perc_discharge [50 ] = " "
-   perc_discharge [60 ] = " "
-   perc_discharge [70 ] = " "
-   perc_discharge [80 ] = " "
-   perc_discharge [90 ] = " "
-   perc_discharge [100] = " "
+   perc_discharge [0  ] = "a"
+   perc_discharge [10 ] = "a"
+   perc_discharge [20 ] = "a"
+   perc_discharge [30 ] = "a"
+   perc_discharge [40 ] = "a"
+   perc_discharge [50 ] = "a"
+   perc_discharge [60 ] = "a"
+   perc_discharge [70 ] = "a"
+   perc_discharge [80 ] = "a"
+   perc_discharge [90 ] = "a"
+   perc_discharge [100] = "a"
 
 --lookup table for charging percentages
 local perc_charg = {}
@@ -67,7 +67,7 @@ local function update_widget()
     elseif state ==2 then
         bat_icn.text = perc_discharge[round_perc]
     end
-    bat_txt.text = string.format('%.0f%%',percentage)
+    bat_txt.text = string.format('%.0f%% ',percentage)
     -- notify user if battery is below 10%
     if percentage==10 then
         naughty.notify({title = 'Low Battery', text = 'Battery is getting low!'})

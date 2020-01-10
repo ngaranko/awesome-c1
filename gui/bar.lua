@@ -14,6 +14,12 @@ function module.createbar(s)
     s.layoutbox = awful.widget.layoutbox(s)
     s.volume_control = require('gui.widgets.volume')
     s.promptbox = awful.widget.prompt()
+    -- Create a tasklist widget
+    s.mytasklist = awful.widget.tasklist(
+      s,
+      awful.widget.tasklist.filter.currenttags,
+      awful.util.tasklist_buttons
+    )
     s.textclock = wibox.widget.textclock('%a,  %b %_d <b>%_I:%M %p</b>')
     s.textclock.valign = 'center'
     s.textclock.align = 'center'
@@ -36,7 +42,8 @@ function module.createbar(s)
                 },
                 --middle widget
                 {
-                    layout = wibox.layout.fixed.horizontal,
+                  layout = wibox.layout.fixed.horizontal,
+                  s.mytasklist
                 },
                 -- left widget
                 {

@@ -36,8 +36,8 @@ t.icon_theme        = 'Paprius-Light'
 
 -- CLIENT SECTION
 
-t.corner_radius = dpi(3)
-t.cust_border_width = dpi(3) -- use this to change side width
+t.corner_radius = dpi(2)
+t.cust_border_width = dpi(2) -- use this to change side width
 t.border_width  = dpi(0)
 t.border_normal = invisible
 t.border_focus  = invisible
@@ -121,6 +121,23 @@ t.taglist_spacing   =  dpi(0)
 t.taglist_font      = 'Monaco Nerd Font 10'
 t.taglist_bg_focus  = colors[4]
 t.taglist_fg_occupied = colors[5]
+
+
+-- Tasklist
+
+t.tasklist_font                 = "Source Code Pro 10"
+t.tasklist_disable_icon         = false
+t.tasklist_fg_focus             = colors[5]
+t.tasklist_fg_urgent            = colors[3]
+t.tasklist_fg_normal            = colors[0]
+t.tasklist_bg_normal            = colors[4]
+t.tasklist_bg_focus             = colors[4]
+t.tasklist_floating             = ""
+t.tasklist_sticky               = ""
+t.tasklist_ontop                = ""
+t.tasklist_maximized_horizontal = ""
+t.tasklist_maximized_vertical   = ""
+
 
 -- SYSTEM TRAY SECTION
 
