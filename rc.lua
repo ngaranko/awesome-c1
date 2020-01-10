@@ -15,6 +15,8 @@ local wibox = require("wibox")
 local naughty = require("naughty")
 local lain    = require("lain")
 local menubar = require("menubar")
+
+local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- gui features (top bar, client decorations)
 local bar = require("gui.bar")
@@ -71,7 +73,7 @@ awful.layout.layouts = {
     lain.layout.centerwork,
     awful.layout.suit.max,
     --awful.layout.suit.floating,
-    awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral,
     awful.layout.suit.magnifier
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
@@ -181,8 +183,28 @@ end
 
 -- }}}
 
+local myawesomemenu = {
+  { "hotkeys", function() return false, hotkeys_popup.show_help end },
+  { "manual", terminal .. " -e man awesome" },
+  { "edit config", string.format("%s -e %s %s", terminal, editor, awesome.conffile) },
+  { "restart", awesome.restart },
+  { "quit", function() awesome.quit() end }
+}
+awful.util.mymainmenu = freedesktop.menu.build({
+    icon_size = beautiful.menu_height or 18,
+    before = {
+      -- other triads can be put here
+    },
+    after = {
+      { "Awesome", myawesomemenu, beautiful.awesome_icon },
+      { "Open terminal", terminal },
+      -- other triads can be put here
+    }
+})
+
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
+    awful.button({ }, 3, function () awful.util.mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
