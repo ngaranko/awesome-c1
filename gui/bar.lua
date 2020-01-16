@@ -47,10 +47,10 @@ function module.createbar(s)
                 },
                 -- left widget
                 {
+                  require('gui.widgets.systray_container'),
                     s.volume_control,
                     require('gui.widgets.battery'),
                     s.textclock,
-                    require('gui.widgets.systray_container'),
                     spacing = 4,
                     layout = wibox.layout.fixed.horizontal,
                 },

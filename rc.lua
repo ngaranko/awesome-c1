@@ -163,12 +163,11 @@ local function set_things_up()
   handle:close()
 
   if result == "" then
-    -- -option altwin:swap_alt_win")
     run_once({
         "feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/small.jpg"
     })
   else
-    awful.util.spawn("xrandr --output HDMI-0 --primary --left-of eDP-1-1")
+    awful.util.spawn("xrandr --output HDMI-0 --scale 1x1 --dpi 96 --primary --left-of DP-2 --scale 1x1 --dpi 96")
       -- ")
     run_once({
         "feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg"})
@@ -233,25 +232,11 @@ globalkeys = gears.table.join(
     end,
     {description = "toggle mute", group = "hotkeys"}),
   
-  awful.key({         }, "XF86AudioPlay",
-    function()
-      awful.spawn("dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
-    end,
-    {descripton = 'last song' ,group = 'audio controls'}),
-    awful.key({         },"XF86AudioNext",
-      function()
-        awful.spawn("dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
-      end,
-      {descripton = 'last song' ,group = 'audio controls'} ),
-    awful.key({         },"XF86AudioPrev",
-      function()
-        awful.spawn("dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
-      end,
-      {descripton = 'last song' ,group = 'audio controls'}),
     awful.key({ }, "XF86MonBrightnessDown", function ()
       awful.util.spawn("xbacklight -dec 15") end),
     awful.key({ }, "XF86MonBrightnessUp", function ()
         awful.util.spawn("xbacklight -inc 15") end),
+
     awful.key({ modkey, }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey, }, "Left",   awful.tag.viewprev,
@@ -438,6 +423,7 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
+                     size_hints_honor = false,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
      }
     },
@@ -474,8 +460,10 @@ awful.rules.rules = {
       }, properties = { floating = true }},
 
     -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+    { rule_any = {
+        type = { "normal", "dialog" }
+    }, properties = {
+        titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -498,7 +486,7 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
     -- round corners less than titlebar amount to avoid aliasing
-    c.shape = function (cr,w,h) return gears.shape.rounded_rect(cr,w,h,beautiful.corner_radius-3) end
+    --c.shape = function (cr,w,h) return gears.shape.rounded_rect(cr,w,h,beautiful.corner_radius-3) end
 end)
 
 client.connect_signal("request::activate", function(client,context,hints)

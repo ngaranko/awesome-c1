@@ -54,7 +54,7 @@ t.border_marked = invisible
 
 -- TITLEBAR SECTION
 
-t.titlebar_height = dpi(12)
+t.titlebar_height = dpi(0)
 t.titlebar_fg_normal    = colors[1]
 t.titlebar_bg_normal    = t.border_normal
 t.titlebar_fg_focus     = colors[3]
@@ -98,11 +98,12 @@ t.tooltip_shape         = function(cr,w,h) shape.rounded_rect(cr,w,h,3) end
 t.wibar_border_color    = invisible
 t.wibar_border_width    = dpi(0)
 t.wibar_ontop           = false
-t.wibar_type            = 'normal' --'dock'
+t.wibar_type            = 'dock'
 t.wibar_font            = font .. '10'
 t.wibar_fg              = colors[0]
 t.wibar_bg              = invisible
 t.wibar_shape           = shape.rectangle
+t.wibar_opacity         = 40
 t.wibar_height          = dpi(30)
 
 --CUSTOM WIBAR VARS
@@ -111,7 +112,7 @@ t.wibar_inner_bg        = colors[4]
 t.wibar_radius          = dpi(0)
 
 -- TAG SECTION --
-t.master_width_factor = 0.6
+t.master_width_factor = 0.4
 t.useless_gap = dpi(2)
 t.gap_single_client = true
 t.master_fill_policy = 'expand'
@@ -139,11 +140,11 @@ t.tasklist_fg_urgent            = colors[3]
 t.tasklist_fg_normal            = colors[0]
 t.tasklist_bg_normal            = colors[4]
 t.tasklist_bg_focus             = colors[4]
-t.tasklist_floating             = ""
-t.tasklist_sticky               = ""
-t.tasklist_ontop                = ""
-t.tasklist_maximized_horizontal = ""
-t.tasklist_maximized_vertical   = ""
+t.tasklist_floating             = "[f] "
+t.tasklist_sticky               = "[s] "
+t.tasklist_ontop                = "[t] "
+t.tasklist_maximized_horizontal = "[M] "
+t.tasklist_maximized_vertical   = "[m] "
 
 
 -- SYSTEM TRAY SECTION

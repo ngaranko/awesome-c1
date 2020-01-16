@@ -4,7 +4,7 @@ local beautiful = require('beautiful')
 local dpi = require('beautiful').xresources.apply_dpi
 
 local systray = wibox.widget.systray()
-systray:set_base_size(16)
+systray:set_base_size(13)
 local widget = wibox.widget{
   systray,
   spacing = 1,
@@ -14,7 +14,7 @@ local widget = wibox.widget{
 
 local w = wibox.container.margin()
 w.top = dpi(5)
-w.right = dpi(26)
+w.right = dpi(5)
 w:set_widget(widget)
 
 return w
