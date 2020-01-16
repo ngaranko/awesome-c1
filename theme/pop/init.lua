@@ -11,17 +11,24 @@ local shape = require('gears.shape')
 
 -- color scheme
 
-local colors = { 
-    '#011627', -- black
-    '#cfcfcf', -- '#fdfffc', -- white
-    '#c4ff2e', -- '#4fdac4', -- sea green
-    '#4e4f4f', -- '#e53b6f', -- bright red
-    '#ffffff', -- '#F4B8C9', -- redish white mix
+-- local colors = { 
+--     '#011627', -- black
+--     '#cfcfcf', -- '#fdfffc', -- white
+--     '#c4ff2e', -- '#4fdac4', -- sea green
+--     '#4e4f4f', -- '#e53b6f', -- bright red
+--     '#ffffff', -- '#F4B8C9', -- redish white mix
+-- }
+local colors = {
+  '#282a2e',
+  '#969896', -- Menu empty
+  '#b5bd68', -- '#c5c8c6', -- Menu active
+  '#1d1f21', -- Menu background
+  '#c5c8c6' -- Menu text
 }
 
 local invisible = '#12345600'
 
-local font = 'SF Pro Display '
+local font = 'Source Code Pro '
 
 --GLOBAL DEFAULTS
 t.bg_normal             = colors[4]
@@ -36,8 +43,8 @@ t.icon_theme        = 'Paprius-Light'
 
 -- CLIENT SECTION
 
-t.corner_radius = dpi(2)
-t.cust_border_width = dpi(2) -- use this to change side width
+t.corner_radius = dpi(0)
+t.cust_border_width = dpi(0) -- use this to change side width
 t.border_width  = dpi(0)
 t.border_normal = invisible
 t.border_focus  = invisible
@@ -47,7 +54,7 @@ t.border_marked = invisible
 
 -- TITLEBAR SECTION
 
-t.titlebar_height = dpi(10)
+t.titlebar_height = dpi(12)
 t.titlebar_fg_normal    = colors[1]
 t.titlebar_bg_normal    = t.border_normal
 t.titlebar_fg_focus     = colors[3]
@@ -83,7 +90,7 @@ t.tooltip_border_color  = colors[1]
 t.tooltip_bg            = colors[1]
 t.tooltip_fg            = colors[2]
 t.tooltip_font          = font .. '9'
-t.tooltip_border_width  = dpi(1)
+t.tooltip_border_width  = dpi(0)
 t.tooltip_opacity       = 40
 t.tooltip_shape         = function(cr,w,h) shape.rounded_rect(cr,w,h,3) end
 -- WIBAR SECTION
@@ -91,7 +98,7 @@ t.tooltip_shape         = function(cr,w,h) shape.rounded_rect(cr,w,h,3) end
 t.wibar_border_color    = invisible
 t.wibar_border_width    = dpi(0)
 t.wibar_ontop           = false
-t.wibar_type            = 'dock'
+t.wibar_type            = 'normal' --'dock'
 t.wibar_font            = font .. '10'
 t.wibar_fg              = colors[0]
 t.wibar_bg              = invisible
@@ -101,7 +108,7 @@ t.wibar_height          = dpi(30)
 --CUSTOM WIBAR VARS
 
 t.wibar_inner_bg        = colors[4]
-t.wibar_radius          = dpi(12)
+t.wibar_radius          = dpi(0)
 
 -- TAG SECTION --
 t.master_width_factor = 0.6
@@ -117,8 +124,8 @@ t.layout_tile = layout_ic .. 'tiled.svg'
 t.layout_floating = layout_ic .. 'floating.svg'
 t.taglist_fg_focus  = colors[3]
 t.taglist_height     = dpi(30)
-t.taglist_spacing   =  dpi(0)
-t.taglist_font      = 'Monaco Nerd Font 10'
+t.taglist_spacing   =  dpi(1)
+t.taglist_font      = 'Source Code Pro 10'
 t.taglist_bg_focus  = colors[4]
 t.taglist_fg_occupied = colors[5]
 
@@ -126,7 +133,7 @@ t.taglist_fg_occupied = colors[5]
 -- Tasklist
 
 t.tasklist_font                 = "Source Code Pro 10"
-t.tasklist_disable_icon         = false
+t.tasklist_disable_icon         = true
 t.tasklist_fg_focus             = colors[5]
 t.tasklist_fg_urgent            = colors[3]
 t.tasklist_fg_normal            = colors[0]
@@ -140,13 +147,13 @@ t.tasklist_maximized_vertical   = ""
 
 
 -- SYSTEM TRAY SECTION
-
 t.systray_icon_spacing = dpi(1)
 
 -- NOTIFICATION THEME
 t.notification_font = font .. '10'
 t.notification_bg   =  colors[1]
-t.notification_max_width = dpi(300)
+t.notification_fg   = '#b5bd68'
+t.notification_max_width = dpi(500)
 t.notification_icon_size = 20
 t.notification_shape = function(cr,w,h) return shape.rounded_rect(cr,w,h,5) end
 

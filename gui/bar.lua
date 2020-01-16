@@ -26,7 +26,7 @@ function module.createbar(s)
     s.textclock.font = beautiful.wibar_font
     s.sidebar_root = awful.wibar({
         screen = s,
-        position = "top",
+        position = "bottom",
         height = beautiful.wibar_height,
     })
     s.sidebar_root:setup({
@@ -34,7 +34,6 @@ function module.createbar(s)
             {
                 -- left widgets
                 {
-                    require('gui.widgets.pie'),
                     taglist.make_tag_list(s),
                     s.promptbox,
                     layout = wibox.layout.fixed.horizontal,
@@ -48,10 +47,10 @@ function module.createbar(s)
                 -- left widget
                 {
                     s.volume_control,
-                    s.layoutbox,
-                    s.textclock,
                     wibox.widget.systray(),
                     require('gui.widgets.battery'),
+                    s.textclock,
+                    s.layoutbox,
                     spacing = 4,
                     layout = wibox.layout.fixed.horizontal,
                 },
@@ -61,10 +60,10 @@ function module.createbar(s)
         shape = function (cr,w,h) return gears.shape.rounded_rect(cr,w,h,beautiful.wibar_radius) end,
         widget = wibox.container.background,
         },
-        left = 2,
-        right = 2,
+        left = 0,
+        right = 0,
         bottom = 0,
-        top = 2,
+        top = 0,
         widget = wibox.container.margin,
     })
 end

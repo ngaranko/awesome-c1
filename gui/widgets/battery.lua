@@ -5,7 +5,7 @@ local wibox = require('wibox')
 local beautiful = require('beautiful')
 local naughty = require('naughty')
 
-local ICON_FT = beautiful.icon_font .. '5'
+local ICON_FT = beautiful.icon_font .. '10'
 
 -- connect to dbus signal
 local dest = 'org.freedesktop.UPower'
@@ -30,17 +30,17 @@ local widget = wibox.widget{
 }
 
 local perc_discharge = {}
-   perc_discharge [0  ] = "a"
-   perc_discharge [10 ] = "a"
-   perc_discharge [20 ] = "a"
-   perc_discharge [30 ] = "a"
-   perc_discharge [40 ] = "a"
-   perc_discharge [50 ] = "a"
-   perc_discharge [60 ] = "a"
-   perc_discharge [70 ] = "a"
-   perc_discharge [80 ] = "a"
-   perc_discharge [90 ] = "a"
-   perc_discharge [100] = "a"
+   perc_discharge [0  ] = "A"
+   perc_discharge [10 ] = "B"
+   perc_discharge [20 ] = "C"
+   perc_discharge [30 ] = "D"
+   perc_discharge [40 ] = "E"
+   perc_discharge [50 ] = "F"
+   perc_discharge [60 ] = "G"
+   perc_discharge [70 ] = "H"
+   perc_discharge [80 ] = "I"
+   perc_discharge [90 ] = "J"
+   perc_discharge [100] = "K"
 
 --lookup table for charging percentages
 local perc_charg = {}

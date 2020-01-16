@@ -16,7 +16,7 @@ local volume_table = {
 
 
 local volume_icn = wibox.widget.textbox()
-volume_icn.font = beautiful.icon_font .. '17'
+volume_icn.font = beautiful.icon_font .. '12'
 
 local volume_slider = wibox.widget{
     bar_shape = shape.rounded_rect,
@@ -27,7 +27,7 @@ local volume_slider = wibox.widget{
     handle_border_color = beautiful.bg_normal,
     handle_border_width = 3,
     value = 0,
-    forced_width = 75,
+    forced_width = 45,
     widget = wibox.widget.slider,
 }
 volume_slider:connect_signal('property::value',function(state)

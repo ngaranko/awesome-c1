@@ -31,9 +31,10 @@ require("awful.hotkeys_popup.keys")
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
+  naughty.notify({
+      preset = naughty.config.presets.critical,
+      title = "Oops, there were errors during startup!",
+      text = awesome.startup_errors })
 end
 
 -- Handle runtime errors after startup
@@ -114,26 +115,26 @@ end
 local function set_tags(s)
     awful.tag(
       {
-        "Browser",
-        "Terminal",
-        "Emacs",
-        "Chats",
-        "Email",
-        "Media",
-        "Downloads",
-        "Random",
-        "Background"
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
       },
       s,
       awful.layout.layouts[1]
     )
     end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
+--screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    set_wallpaper(s)
+    -- set_wallpaper(s)
     set_tags(s)
     bar.createbar(s)
 end)
@@ -163,11 +164,14 @@ local function set_things_up()
 
   if result == "" then
     -- -option altwin:swap_alt_win")
-    run_once({"feh --bg-scale /home/ngaranko/Pictures/hot-rod-model-a-stanceworks-wallpaper.jpg"})
+    run_once({
+        "feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/small.jpg"
+    })
   else
     awful.util.spawn("xrandr --output HDMI-0 --primary --left-of eDP-1-1")
       -- ")
-    run_once({"feh --bg-scale /home/ngaranko/Pictures/volkswagen_golf_mk1_yellow_front_view_107928_2560x1080.jpg --bg-scale /home/ngaranko/Pictures/rusty-slammington-desktop-wallpaper.jpg"})
+    run_once({
+        "feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg"})
   end
 
 
@@ -205,8 +209,8 @@ awful.util.mymainmenu = freedesktop.menu.build({
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
     awful.button({ }, 3, function () awful.util.mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 8, awful.tag.viewnext),
+    awful.button({ }, 9, awful.tag.viewprev)
 ))
 -- }}}
 
