@@ -23,7 +23,7 @@ local bat_txt = wibox.widget.textbox()
 bat_txt.font = beautiful.wibar_font
 
 local widget = wibox.widget{
-    wibox.container.rotate(bat_icn,'west'),
+    bat_icn,
     bat_txt,
     spacing = 1,
     layout = wibox.layout.fixed.horizontal,
@@ -40,7 +40,7 @@ local perc_discharge = {}
    perc_discharge [70 ] = "H"
    perc_discharge [80 ] = "I"
    perc_discharge [90 ] = "J"
-   perc_discharge [100] = "K"
+   perc_discharge [100] = "V"
 
 --lookup table for charging percentages
 local perc_charg = {}
@@ -54,7 +54,7 @@ local perc_charg = {}
     perc_charg [70 ] = " "
     perc_charg [80 ] = " "
     perc_charg [90 ] = " "
-    perc_charg [100] = " "
+    perc_charg [100] = "K"
 
 local state = nil
 local percentage = nil
@@ -63,9 +63,9 @@ local function update_widget()
     -- state: 1: charging, 2: dischargning
     local round_perc = percentage - (percentage%10)
     if state == 1 or state == 4 then
-        bat_icn.text = perc_charg[round_perc]
+        bat_icn.text = '+'
     elseif state ==2 then
-        bat_icn.text = perc_discharge[round_perc]
+        bat_icn.text = '-'
     end
     bat_txt.text = string.format('%.0f%% ',percentage)
     -- notify user if battery is below 10%

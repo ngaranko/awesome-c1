@@ -23,7 +23,7 @@ local colors = {
   '#969896', -- Menu empty
   '#b5bd68', -- '#c5c8c6', -- Menu active
   '#1d1f21', -- Menu background
-  '#c5c8c6' -- Menu text
+  '#8abeb7' -- Menu text
 }
 
 local invisible = '#12345600'
@@ -147,7 +147,7 @@ t.tasklist_maximized_vertical   = ""
 
 
 -- SYSTEM TRAY SECTION
-t.systray_icon_spacing = dpi(1)
+t.systray_icon_spacing = dpi(5)
 
 -- NOTIFICATION THEME
 t.notification_font = font .. '10'

@@ -29,6 +29,7 @@ function module.createbar(s)
         position = "bottom",
         height = beautiful.wibar_height,
     })
+
     s.sidebar_root:setup({
         {
             {
@@ -47,17 +48,18 @@ function module.createbar(s)
                 -- left widget
                 {
                     s.volume_control,
-                    wibox.widget.systray(),
                     require('gui.widgets.battery'),
                     s.textclock,
                     s.layoutbox,
+                    require('gui.widgets.systray_container'),
                     spacing = 4,
                     layout = wibox.layout.fixed.horizontal,
                 },
                 layout = wibox.layout.align.horizontal,
             },
         bg = beautiful.wibar_inner_bg,
-        shape = function (cr,w,h) return gears.shape.rounded_rect(cr,w,h,beautiful.wibar_radius) end,
+        shape = function (cr,w,h) return gears.shape.rounded_rect(
+            cr,w,h,beautiful.wibar_radius) end,
         widget = wibox.container.background,
         },
         left = 0,
