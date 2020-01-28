@@ -163,13 +163,10 @@ local function set_things_up()
   handle:close()
 
   if result == "" then
-    run_once({
-        "feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/small.jpg"
-    })
+    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/small.jpg")
   else
     awful.util.spawn("xrandr --output HDMI-0 --scale 1x1 --dpi 96 --primary --right-of DP-2 --scale 1x1 --dpi 96")
-    run_once({
-        "feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg"})
+    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg")
   end
   local hp = io.popen("xrandr | grep 'DP-1 connected'")
   local hp_result = hp:read("*a")
@@ -177,9 +174,17 @@ local function set_things_up()
 
   if hp_result == "" then
   else
-    awful.util.spawn("xrandr --output DP-1 --scale 1x1 --dpi 96 --primary --right-of DP-2 --scale 1x1 --dpi 96")
-    run_once({
-        "feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg"})
+    awful.util.spawn("xrandr --output DP-1 --scale 1x1 --dpi 96 --primary --left-of DP-2 --scale 1x1 --dpi 96")
+    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg")
+  end
+  local hp2 = io.popen("xrandr | grep 'DP-0 connected'")
+  local hp2_result = hp2:read("*a")
+  hp2:close()
+
+  if hp2_result == "" then
+  else
+    awful.util.spawn("xrandr --output DP-0 --scale 1x1 --dpi 96 --primary --left-of DP-2 --scale 1x1 --dpi 96")
+    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg")
   end
 
 

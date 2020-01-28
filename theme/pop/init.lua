@@ -26,7 +26,7 @@ local colors = {
   '#8abeb7' -- Menu text
 }
 
-local invisible = '#12345600'
+local invisible = '#8abeb7'
 
 local font = 'Source Code Pro '
 
@@ -46,6 +46,7 @@ t.icon_theme        = 'Paprius-Light'
 t.corner_radius = dpi(0)
 t.cust_border_width = dpi(1) -- use this to change side width
 t.border_width  = dpi(1)
+t.border_color = colors[4]
 t.border_normal = invisible
 t.border_focus  = invisible
 t.border_marked = invisible
