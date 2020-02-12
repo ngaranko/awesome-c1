@@ -27,7 +27,7 @@ function module.createbar(s)
     s.textclock.font = beautiful.wibar_font
     s.sidebar_root = awful.wibar({
         screen = s,
-        position = "bottom",
+        position = "top",
         height = beautiful.wibar_height,
     })
 

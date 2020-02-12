@@ -57,7 +57,7 @@ end
 -- beautifuls define colours, icons, font and wallpapers.
 
 -- This is used later as the default terminal and editor to run.
-terminal = "gnome-terminal"
+terminal = "xterm"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -187,8 +187,18 @@ local function set_things_up()
     awful.util.spawn("xrandr --output DP-0 --scale 1x1 --dpi 96 --primary --left-of DP-2 --scale 1x1 --dpi 96")
     awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg")
   end
+  -- Office
+  local office_hp = io.popen("xrandr | grep 'DP-1-2-1 connected'")
+  local office_hp_result = office_hp:read("*a")
+  office_hp:close()
 
+  if office_hp_result == "" then
+  else
+    awful.util.spawn("xrandr --output DP-1-2-1 --scale 1x1 --dpi 96 --primary --left-of eDP-1-1 --scale 1x1 --dpi 96")
+    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/work_big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/work_small.jpg")
+  end
 
+ 
   local h2 = io.popen("xinput -list | grep -i key | grep HHKB")
   local result2 = h2:read("*a")
   h2:close()
@@ -521,6 +531,12 @@ awful.rules.rules = {
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
+    { rule = { class = "Gnome-terminal" },
+      properties = { opacity = 0.75 } },
+    { rule = { class = "Emacs" },
+      properties = { opacity = 0.95 } },
+    { rule = { class = "XTerm" },
+      properties = { opacity = 0.75 } },
 }
 -- }}}
 
