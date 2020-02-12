@@ -36,6 +36,7 @@ t.wallpaper     = theme_root .. 'wallpaper.jpg'
 t.font = font .. '10'
 t.icon_font         = 'Monaco Nerd Font '
 t.icon_theme        = 'Paprius-Light'
+t.rofi_theme_name   = 'purple'
 
 -- CLIENT SECTION
 

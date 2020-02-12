@@ -334,7 +334,7 @@ globalkeys = gears.table.join(
     -- Prompt
 
     awful.key({ modkey }, "r", function ()
-        os.execute("rofi -show run -theme Monokai")
+        os.execute("rofi -show run -theme " .. beautiful.rofi_theme_name)
                                end,
       {description = "show rofi", group = "launcher"}),
 
