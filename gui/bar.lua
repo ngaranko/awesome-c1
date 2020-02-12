@@ -20,7 +20,8 @@ function module.createbar(s)
       awful.widget.tasklist.filter.currenttags,
       awful.util.tasklist_buttons
     )
-    s.textclock = wibox.widget.textclock('%a,  %b %_d <b>%_I:%M %p</b>')
+    s.textclock = wibox.widget.textclock('%a,  %b %_d <b>%_I:%M %p</b>  ')
+    s.firstspace = wibox.widget.textbox(" ")
     s.textclock.valign = 'center'
     s.textclock.align = 'center'
     s.textclock.font = beautiful.wibar_font
@@ -34,7 +35,8 @@ function module.createbar(s)
         {
             {
                 -- left widgets
-                {
+              {
+                    s.firstspace,
                     taglist.make_tag_list(s),
                     s.promptbox,
                     layout = wibox.layout.fixed.horizontal,
@@ -61,10 +63,11 @@ function module.createbar(s)
             cr,w,h,beautiful.wibar_radius) end,
         widget = wibox.container.background,
         },
-        left = 2,
-        right = 2,
+        left = 0,
+        right = 0,
         bottom = 2,
         top = 0,
+        opacity = 0.93,
         widget = wibox.container.margin,
     })
 end

@@ -152,10 +152,10 @@ local function run_once(cmd_arr)
 end
 
 -- entries must be comma-separated
-run_once({ "blueman-applet" }) -- Fix java problem
-run_once({ "nm-applet -sm-disable" }) -- Network manager tray icon
-run_once({ "xfce4-power-manager" }) -- Power manager
-run_once({ "/usr/bin/numlockx off" }) -- disable numlock
+run_once({ "blueman-applet" })
+run_once({ "nm-applet -sm-disable" })
+run_once({ "xfce4-power-manager" })
+run_once({ "/usr/bin/numlockx off" })
 run_once({ "compton "})
 
 local function set_things_up()
@@ -513,9 +513,11 @@ awful.rules.rules = {
     { rule = { class = "Emacs" },
       properties = { opacity = 0.95 } },
     { rule = { class = "Telegram" },
-      properties = { opacity = 0.85 } },
+      properties = { opacity = 0.95 } },
     { rule = { class = "Slack" },
-      properties = { opacity = 0.85 } },
+      properties = { opacity = 0.95 } },
+    { rule = { class = "Spotify" },
+      properties = { opacity = 0.95 } },
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
