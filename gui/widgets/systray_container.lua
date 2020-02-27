@@ -13,8 +13,8 @@ local widget = wibox.widget{
 
 
 local w = wibox.container.margin()
-w.top = dpi(5)
-w.right = dpi(5)
+w.top = dpi(10)
+w.right = dpi(10)
 w:set_widget(widget)
 
 return w
