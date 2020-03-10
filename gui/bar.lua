@@ -32,7 +32,7 @@ function module.createbar(s)
     s.sidebar_root = awful.wibar({
         screen = s,
         position = "bottom",
-        width = 1700,
+        width = 1590,
         height = beautiful.wibar_height,
     })
 

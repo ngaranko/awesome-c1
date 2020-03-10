@@ -197,6 +197,15 @@ local function set_things_up()
     awful.util.spawn("xrandr --output HDMI-2 --scale 1x1 --dpi 96 --primary --left-of eDP-1 --scale 1x1 --dpi 96")
     awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/work_big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/work_small.jpg")
   end
+  local office_hp2 = io.popen("xrandr | grep 'DP-1-2-1 connected'")
+  local office_hp2_result = office_hp2:read("*a")
+  office_hp2:close()
+
+  if office_hp2_result == "" then
+  else
+    awful.util.spawn("xrandr --output DP-1-2-1 --scale 1x1 --dpi 96 --primary --left-of eDP-1-1 --scale 1x1 --dpi 96")
+    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/work_big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/work_small.jpg")
+  end
 
  
   local h2 = io.popen("xinput -list | grep -i key | grep HHKB")
@@ -347,6 +356,10 @@ globalkeys = gears.table.join(
         os.execute("rofi -show run -theme " .. beautiful.rofi_theme_name)
                                end,
       {description = "show rofi", group = "launcher"}),
+    awful.key({ modkey }, "`", function ()
+        os.execute("rofi -show window -theme " .. beautiful.rofi_theme_name)
+                               end,
+      {description = "show rofi", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -357,11 +370,7 @@ globalkeys = gears.table.join(
                     history_path = awful.util.get_cache_dir() .. "/history_eval"
                   }
               end,
-              {description = "lua execute prompt", group = "awesome"}),
-    -- Menubar
-    awful.key({ modkey }, "p",
-      function() menubar.show() end,
-      {description = "show the menubar", group = "launcher"})
+              {description = "lua execute prompt", group = "awesome"})
 )
 
 clientkeys = gears.table.join(
