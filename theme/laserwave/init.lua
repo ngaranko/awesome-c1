@@ -40,9 +40,9 @@ t.rofi_theme_name   = 'purple'
 
 -- CLIENT SECTION
 
-t.corner_radius = dpi(0)
-t.cust_border_width = dpi(1) -- use this to change side width
-t.border_width  = dpi(3)
+t.corner_radius = dpi(15)
+t.cust_border_width = dpi(0) -- use this to change side width
+t.border_width  = dpi(0)
 t.border_color = colors[5]
 t.border_normal = invisible
 t.border_focus  = invisible
@@ -107,11 +107,11 @@ t.wibar_height          = dpi(30)
 --CUSTOM WIBAR VARS
 
 t.wibar_inner_bg        = colors[4]
-t.wibar_radius          = dpi(0)
+t.wibar_radius          = dpi(10)
 
 -- TAG SECTION --
 t.master_width_factor = 0.4
-t.useless_gap = dpi(2)
+t.useless_gap = dpi(6)
 t.gap_single_client = true
 t.master_fill_policy = 'expand'
 t.master_count = 1
@@ -132,7 +132,7 @@ t.taglist_fg_occupied = colors[5]
 -- Tasklist
 
 t.tasklist_font                 = "Source Code Pro 10"
-t.tasklist_disable_icon         = true
+t.tasklist_disable_icon         = false
 t.tasklist_fg_focus             = colors[8]
 t.tasklist_fg_urgent            = colors[8]
 t.tasklist_fg_normal            = colors[1]

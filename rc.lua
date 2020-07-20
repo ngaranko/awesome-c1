@@ -14,6 +14,7 @@ local wibox = require("wibox")
 -- Notification library
 local naughty = require("naughty")
 local lain    = require("lain")
+local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local menubar = require("menubar")
 
 local freedesktop   = require("freedesktop")
@@ -95,7 +96,43 @@ awful.layout.layouts = {
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
+-- Tasklist things
+awful.util.tasklist_buttons = my_table.join(
+    awful.button({ }, 1, function (c)
+        if c == client.focus then
+            c.minimized = true
+        else
+            --c:emit_signal("request::activate", "tasklist", {raise = true})<Paste>
+
+            -- Without this, the following
+            -- :isvisible() makes no sense
+            c.minimized = false
+            if not c:isvisible() and c.first_tag then
+                c.first_tag:view_only()
+            end
+            -- This will also un-minimize
+            -- the client, if needed
+            client.focus = c
+            c:raise()
+        end
+    end),
+    awful.button({ }, 2, function (c) c:kill() end),
+    awful.button({ }, 3, function ()
+        local instance = nil
+
+        return function ()
+            if instance and instance.wibox.visible then
+                instance:hide()
+                instance = nil
+            else
+                instance = awful.menu.clients({theme = {width = dpi(250)}})
+            end
+        end
+    end),
+    awful.button({ }, 4, function () awful.client.focus.byidx(1) end),
+    awful.button({ }, 5, function () awful.client.focus.byidx(-1) end)
+)
+
 
 -- Create a textclock widget
 
@@ -156,7 +193,7 @@ run_once({ "blueman-applet" })
 run_once({ "nm-applet -sm-disable" })
 run_once({ "xfce4-power-manager" })
 run_once({ "/usr/bin/numlockx off" })
--- run_once({ "compton "})
+run_once({ "compton "})
 
 local function set_things_up()
   local handle = io.popen("xrandr | grep 'HDMI-0 connected'")
@@ -212,7 +249,8 @@ local function set_things_up()
   local result2 = h2:read("*a")
   h2:close()
   if result2 == "" then
-    awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
+    --awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
+    awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle")
   else
     awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle")
   end
@@ -522,7 +560,7 @@ awful.rules.rules = {
     { rule_any = {
         type = { "normal", "dialog" }
     }, properties = {
-        titlebars_enabled = false }
+        titlebars_enabled = true }
     },
 
     { rule = { class = "gnome-terminal-server" },
@@ -563,7 +601,7 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
     -- round corners less than titlebar amount to avoid aliasing
-    --c.shape = function (cr,w,h) return gears.shape.rounded_rect(cr,w,h,beautiful.corner_radius-3) end
+    c.shape = function (cr,w,h) return gears.shape.rounded_rect(cr,w,h,beautiful.corner_radius-3) end
 end)
 
 client.connect_signal("request::activate", function(client,context,hints)
