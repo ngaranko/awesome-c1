@@ -15,7 +15,7 @@ function module.createbar(s)
     s.systray = require('gui.widgets.systray_container')
     s.ram_widget = require("gui.widgets.ram-widget.ram-widget")
     s.volume_widget = require("gui.widgets.volumearc-widget.volumearc")
-    -- s.battery_widget = require("gui.widgets.batteryarc-widget.batteryarc")
+    s.battery_widget = require("gui.widgets.batteryarc-widget.batteryarc")
     s.promptbox = awful.widget.prompt()
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(
@@ -30,7 +30,8 @@ function module.createbar(s)
     s.textclock.font = beautiful.wibar_font
     s.sidebar_root = awful.wibar({
         screen = s,
-        position = "top",
+        position = "bottom",
+        width=1600,
         height = beautiful.wibar_height,
     })
 
@@ -55,23 +56,23 @@ function module.createbar(s)
                   s.systray,
                   s.ram_widget(),
                   s.volume_widget(),
-                  --s.battery_widget(),
+                  s.battery_widget(),
                   s.textclock,
                   spacing = 4,
                   layout = wibox.layout.fixed.horizontal,
                 },
                 layout = wibox.layout.align.horizontal,
             },
-        bg = beautiful.wibar_inner_bg,
-        shape = function (cr,w,h) return gears.shape.rounded_rect(
-            cr,w,h,beautiful.wibar_radius) end,
-        widget = wibox.container.background,
+            bg = beautiful.wibar_inner_bg,
+            shape = function (cr,w,h) return gears.shape.rounded_rect(
+                cr,w,h,beautiful.wibar_radius) end,
+            widget = wibox.container.background,
         },
         left = 0,
         right = 0,
         bottom = 2,
         top = 0,
-        opacity = 0.93,
+        opacity = 0.83,
         widget = wibox.container.margin,
     })
 end

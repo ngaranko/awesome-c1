@@ -249,8 +249,8 @@ local function set_things_up()
   local result2 = h2:read("*a")
   h2:close()
   if result2 == "" then
-    --awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
-    awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle")
+    awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
+    --awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle")
   else
     awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle")
   end
@@ -391,7 +391,7 @@ globalkeys = gears.table.join(
     -- Prompt
 
     awful.key({ modkey }, "r", function ()
-        os.execute("rofi -show run -theme " .. beautiful.rofi_theme_name)
+        os.execute("rofi -no-lazy-grab  -show combi -combi-modi drun,run -theme launchers/style_normal_grid_round.rasi")
                                end,
       {description = "show rofi", group = "launcher"}),
     awful.key({ modkey }, "`", function ()
