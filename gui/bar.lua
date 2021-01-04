@@ -8,6 +8,7 @@ local beautiful = require('beautiful')
 
 -- widgets
 local taglist = require('gui.widgets.tag_list')
+local toggl = require('gui.widgets.toggl')
 local module = {}
 
 function module.createbar(s)
@@ -31,7 +32,7 @@ function module.createbar(s)
     s.sidebar_root = awful.wibar({
         screen = s,
         position = "bottom",
-        width=1600,
+        width=1800,
         height = beautiful.wibar_height,
     })
 
@@ -54,10 +55,17 @@ function module.createbar(s)
                 -- left widget
                 {
                   s.systray,
-                  s.ram_widget(),
+                  -- s.ram_widget(),
+                  wibox.widget.textbox(" "),
                   s.volume_widget(),
-                  s.battery_widget(),
+                  --s.battery_widget(),
                   s.textclock,
+                  {
+                      toggl,
+                      bg = beautiful.bg_focus,
+                      fg = beautiful.bg_normal,
+                      widget = wibox.container.background
+                  },
                   spacing = 4,
                   layout = wibox.layout.fixed.horizontal,
                 },

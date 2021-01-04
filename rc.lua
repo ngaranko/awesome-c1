@@ -58,7 +58,7 @@ end
 -- beautifuls define colours, icons, font and wallpapers.
 
 -- This is used later as the default terminal and editor to run.
-terminal = "gnome-terminal"
+terminal = "kitty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -191,9 +191,10 @@ end
 -- entries must be comma-separated
 run_once({ "blueman-applet" })
 run_once({ "nm-applet -sm-disable" })
-run_once({ "xfce4-power-manager" })
+-- run_once({ "xfce4-power-manager" })
 run_once({ "/usr/bin/numlockx off" })
 run_once({ "compton "})
+run_once({ "/home/ngaranko/.dropbox-dist/dropboxd" })
 
 local function set_things_up()
   local handle = io.popen("xrandr | grep 'HDMI-0 connected'")
@@ -249,10 +250,10 @@ local function set_things_up()
   local result2 = h2:read("*a")
   h2:close()
   if result2 == "" then
-    awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
+    --awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
     --awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle")
   else
-    awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle")
+    --awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle")
   end
 end
 
@@ -391,7 +392,7 @@ globalkeys = gears.table.join(
     -- Prompt
 
     awful.key({ modkey }, "r", function ()
-        os.execute("rofi -no-lazy-grab  -show combi -combi-modi drun,run -theme launchers/style_normal_grid_round.rasi")
+        os.execute("rofi -no-lazy-grab  -show combi -combi-modi drun,run -theme slate.rasi")
                                end,
       {description = "show rofi", group = "launcher"}),
     awful.key({ modkey }, "`", function ()
