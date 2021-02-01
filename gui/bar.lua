@@ -15,7 +15,7 @@ function module.createbar(s)
     s.layoutbox = awful.widget.layoutbox(s)
     s.systray = require('gui.widgets.systray_container')
     s.ram_widget = require("gui.widgets.ram-widget.ram-widget")
-    s.volume_widget = require("gui.widgets.volumearc-widget.volumearc")
+    s.volume_widget = require("gui.widgets.volumebar-widget.volumebar")
     s.battery_widget = require("gui.widgets.batteryarc-widget.batteryarc")
     s.promptbox = awful.widget.prompt()
     -- Create a tasklist widget
@@ -41,7 +41,6 @@ function module.createbar(s)
             {
                 -- left widgets
               {
-                    s.firstspace,
                     taglist.make_tag_list(s),
                     s.promptbox,
                     layout = wibox.layout.fixed.horizontal,
@@ -54,12 +53,18 @@ function module.createbar(s)
                 },
                 -- left widget
                 {
-                  s.systray,
                   -- s.ram_widget(),
                   wibox.widget.textbox(" "),
-                  s.volume_widget(),
+                  {
+                      s.volume_widget(),
+                      bg = beautiful.taglist_fg_focus,
+                      fg = beautiful.bg_normal,
+                      widget = wibox.container.background
+                  },
                   --s.battery_widget(),
                   s.textclock,
+                  s.systray,
+                  wibox.widget.textbox(" "),
                   {
                       toggl,
                       bg = beautiful.bg_focus,
@@ -78,7 +83,7 @@ function module.createbar(s)
         },
         left = 0,
         right = 0,
-        bottom = 2,
+        bottom = 0,
         top = 0,
         opacity = 0.83,
         widget = wibox.container.margin,

@@ -58,8 +58,8 @@ end
 -- beautifuls define colours, icons, font and wallpapers.
 
 -- This is used later as the default terminal and editor to run.
-terminal = "kitty"
-editor = os.getenv("EDITOR") or "vim"
+terminal = "xfce4-terminal"
+editor = "emacsclient -c "
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -73,15 +73,15 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.tile,
     lain.layout.centerwork,
-    awful.layout.suit.max,
+    --awful.layout.suit.max,
     --awful.layout.suit.floating,
     -- awful.layout.suit.spiral,
-    awful.layout.suit.magnifier
+    --awful.layout.suit.magnifier
     -- awful.layout.suit.tile.left,
-    -- awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
     -- awful.layout.suit.fair,
-    -- awful.layout.suit.fair.horizontal,
+    --awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.max,
@@ -152,15 +152,13 @@ end
 local function set_tags(s)
     awful.tag(
       {
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
+        " W ",
+        " T ",
+        " E ",
+        " C ",
+        " M ",
+        " R ",
+        " BS "
       },
       s,
       awful.layout.layouts[1]
@@ -195,6 +193,7 @@ run_once({ "nm-applet -sm-disable" })
 run_once({ "/usr/bin/numlockx off" })
 run_once({ "compton "})
 run_once({ "/home/ngaranko/.dropbox-dist/dropboxd" })
+run_once({ "emacs --daemon" })
 
 local function set_things_up()
   local handle = io.popen("xrandr | grep 'HDMI-0 connected'")
