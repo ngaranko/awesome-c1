@@ -3,7 +3,7 @@
     uses gtk as fallback, then sets additional variables via a lua file
 --]]
 local gtable = require('gears.table')
-local theme_file = require('theme.nord_light')
+local theme_file = require('theme.pop')
 local final_theme = {}
 
 -- add gtk theme variables

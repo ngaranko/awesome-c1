@@ -103,7 +103,7 @@ t.wibar_fg              = colors[2]
 t.wibar_bg              = colors[4]
 t.wibar_shape           = shape.rectangle
 t.wibar_opacity         = 40
-t.wibar_height          = dpi(30)
+t.wibar_height          = dpi(27)
 
 --CUSTOM WIBAR VARS
 

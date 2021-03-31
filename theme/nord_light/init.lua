@@ -6,9 +6,6 @@ local dpi = require('beautiful').xresources.apply_dpi
 local theme_root = require('gears.filesystem').get_configuration_dir() .. '/theme/pop/'
 local shape = require('gears.shape')
 
-
-
-
 -- color scheme
 -- See: https://github.com/Jaredk3nt/laserwave
 local colors = {
@@ -42,7 +39,7 @@ t.rofi_theme_name   = 'purple'
 
 -- CLIENT SECTION
 
-t.corner_radius = dpi(8)
+t.corner_radius = dpi(2)
 t.cust_border_width = dpi(0) -- use this to change side width
 t.border_width  = dpi(0)
 t.border_color = colors[5]
@@ -113,7 +110,7 @@ t.wibar_radius          = dpi(5)
 
 -- TAG SECTION --
 t.master_width_factor = 0.4
-t.useless_gap = dpi(6)
+t.useless_gap = dpi(10)
 t.gap_single_client = true
 t.master_fill_policy = 'expand'
 t.master_count = 1

@@ -78,7 +78,7 @@ awful.layout.layouts = {
     -- awful.layout.suit.spiral,
     --awful.layout.suit.magnifier
     -- awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
     -- awful.layout.suit.fair,
     --awful.layout.suit.fair.horizontal,
@@ -86,7 +86,7 @@ awful.layout.layouts = {
     -- awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
-    -- awful.layout.suit.magnifier,
+    awful.layout.suit.magnifier,
     -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
@@ -194,66 +194,12 @@ run_once({ "/usr/bin/numlockx off" })
 run_once({ "compton "})
 run_once({ "/home/ngaranko/.dropbox-dist/dropboxd" })
 run_once({ "emacs --daemon" })
+run_once({ "dnfdragora-updater" })
 
 local function set_things_up()
-  local handle = io.popen("xrandr | grep 'HDMI-0 connected'")
-  local result = handle:read("*a")
-  handle:close()
+  awful.util.spawn("feh --bg-fill /home/ngaranko/.config/awesome/wallpapers/s5/1.jpg")
 
-  if result == "" then
-    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/small.jpg")
-  else
-    awful.util.spawn("xrandr --output HDMI-0 --scale 1x1 --dpi 96 --primary --right-of DP-2 --scale 1x1 --dpi 96")
-    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg")
-  end
-  local hp = io.popen("xrandr | grep 'DP-1 connected'")
-  local hp_result = hp:read("*a")
-  hp:close()
-
-  if hp_result == "" then
-  else
-    awful.util.spawn("xrandr --output DP-1 --scale 1x1 --dpi 96 --primary --left-of DP-2 --scale 1x1 --dpi 96")
-    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg")
-  end
-  local hp2 = io.popen("xrandr | grep 'DP-0 connected'")
-  local hp2_result = hp2:read("*a")
-  hp2:close()
-
-  if hp2_result == "" then
-  else
-    awful.util.spawn("xrandr --output DP-0 --scale 1x1 --dpi 96 --primary --left-of DP-2 --scale 1x1 --dpi 96")
-    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/small.jpg")
-  end
-  -- Office
-  local office_hp = io.popen("xrandr | grep 'HDMI-2 connected'")
-  local office_hp_result = office_hp:read("*a")
-  office_hp:close()
-
-  if office_hp_result == "" then
-  else
-    awful.util.spawn("xrandr --output HDMI-2 --scale 1x1 --dpi 96 --primary --left-of eDP-1 --scale 1x1 --dpi 96")
-    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/work_big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/work_small.jpg")
-  end
-  local office_hp2 = io.popen("xrandr | grep 'DP-1-2-1 connected'")
-  local office_hp2_result = office_hp2:read("*a")
-  office_hp2:close()
-
-  if office_hp2_result == "" then
-  else
-    awful.util.spawn("xrandr --output DP-1-2-1 --scale 1x1 --dpi 96 --primary --left-of eDP-1-1 --scale 1x1 --dpi 96")
-    awful.util.spawn("feh --bg-scale /home/ngaranko/.config/awesome/theme/pop/work_big.jpg --bg-fill /home/ngaranko/.config/awesome/theme/pop/work_small.jpg")
-  end
-
- 
-  local h2 = io.popen("xinput -list | grep -i key | grep HHKB")
-  local result2 = h2:read("*a")
-  h2:close()
-  if result2 == "" then
-    --awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle -option ctrl:nocaps -option altwin:swap_alt_win")
-    --awful.util.spawn("setxkbmap -model macintosh -layout us,ru -option grp:ctrl_alt_toggle")
-  else
-    --awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle")
-  end
+  awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle")
 end
 
 -- }}}
@@ -568,7 +514,7 @@ awful.rules.rules = {
     { rule = { class = "Gnome-terminal" },
       properties = { opacity = 0.95 } },
     { rule = { class = "Emacs" },
-      properties = { opacity = 0.95 } },
+      properties = { opacity = 0.80 } },
     { rule = { class = "Telegram" },
       properties = { opacity = 0.95 } },
     { rule = { class = "Slack" },
@@ -582,6 +528,8 @@ awful.rules.rules = {
       properties = { opacity = 0.95 } },
     { rule = { class = "Emacs" },
       properties = { opacity = 0.95 } },
+    { rule = { class = "kitty" },
+      properties = { opacity = 0.80 } },
     { rule = { class = "XTerm" },
       properties = { opacity = 0.95 } },
 }
