@@ -1,5 +1,6 @@
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
+-- required: compton, feh, rofi, network-management-applet, acpi
 pcall(require, "luarocks.loader")
 
 -- Standard awesome library
@@ -58,7 +59,7 @@ end
 -- beautifuls define colours, icons, font and wallpapers.
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xfce4-terminal"
+terminal = "gnome-terminal"
 editor = "emacsclient -c "
 editor_cmd = terminal .. " -e " .. editor
 
@@ -197,9 +198,9 @@ run_once({ "emacs --daemon" })
 run_once({ "dnfdragora-updater" })
 
 local function set_things_up()
-  awful.util.spawn("feh --bg-fill /home/ngaranko/.config/awesome/wallpapers/s5/1.jpg")
+  awful.util.spawn("feh --bg-fill /home/ngaranko/.config/awesome/wallpapers/error-2-2560×1440.jpg")
 
-  awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle")
+  awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle -option altwin:swap_alt_win -option ctrl:nocaps")
 end
 
 -- }}}

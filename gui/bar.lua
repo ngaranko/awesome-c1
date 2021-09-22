@@ -32,7 +32,7 @@ function module.createbar(s)
     s.sidebar_root = awful.wibar({
         screen = s,
         position = "bottom",
-        width=2000,
+        width=1800,
         height = beautiful.wibar_height,
     })
 
@@ -61,7 +61,7 @@ function module.createbar(s)
                       fg = beautiful.bg_normal,
                       widget = wibox.container.background
                   },
-                  --s.battery_widget(),
+                  s.battery_widget(),
                   wibox.widget.textbox(" "),
                   s.systray,
                   wibox.widget.textbox("   "),
@@ -70,7 +70,7 @@ function module.createbar(s)
                       toggl,
                       bg = beautiful.bg_focus,
                       fg = beautiful.bg_normal,
-                      widget = wibox.container.background
+                  widget = wibox.container.background
                   },
                   spacing = 4,
                   layout = wibox.layout.fixed.horizontal,
