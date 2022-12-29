@@ -59,7 +59,7 @@ end
 -- beautifuls define colours, icons, font and wallpapers.
 
 -- This is used later as the default terminal and editor to run.
-terminal = "gnome-terminal"
+terminal = "kitty"
 editor = "emacsclient -c "
 editor_cmd = terminal .. " -e " .. editor
 
@@ -191,16 +191,17 @@ end
 run_once({ "blueman-applet" })
 run_once({ "nm-applet -sm-disable" })
 -- run_once({ "xfce4-power-manager" })
-run_once({ "/usr/bin/numlockx off" })
+run_once({ "volumeicon" })
+-- run_once({ "/usr/bin/numlockx off" })
 run_once({ "compton "})
-run_once({ "/home/ngaranko/.dropbox-dist/dropboxd" })
+-- run_once({ "/home/ngaranko/.dropbox-dist/dropboxd" })
 run_once({ "emacs --daemon" })
-run_once({ "dnfdragora-updater" })
+--run_once({ "dnfdragora-updater" })
 
 local function set_things_up()
-  awful.util.spawn("feh --bg-fill /home/ngaranko/.config/awesome/wallpapers/error-2-2560×1440.jpg")
+  awful.util.spawn("feh --bg-fill ~/.config/awesome/wallpapers/error-2-2560×1440.jpg")
 
-  awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle -option altwin:swap_alt_win -option ctrl:nocaps")
+  -- awful.util.spawn("setxkbmap -model hhk -layout us,ru -option grp:ctrl_alt_toggle -option altwin:swap_alt_win -option ctrl:nocaps")
 end
 
 -- }}}
@@ -338,7 +339,7 @@ globalkeys = gears.table.join(
     -- Prompt
 
     awful.key({ modkey }, "r", function ()
-        os.execute("rofi -no-lazy-grab  -show combi -combi-modi drun,run -theme slate.rasi")
+        os.execute("rofi -no-lazy-grab  -show combi -combi-modi drun,run -theme launchers/type-1/style-11.rasi")
                                end,
       {description = "show rofi", group = "launcher"}),
     awful.key({ modkey }, "`", function ()
